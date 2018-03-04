@@ -32,5 +32,9 @@ public class FoodSubtype {
 
     @Column(name = "name_eng")
     private String nameEng;
+
+    @OneToOne
+    @JoinColumn
+    private Food food;
 }
 

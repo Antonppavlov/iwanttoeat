@@ -121,4 +121,7 @@ public class ProductData {
     @Column(name = "calorie_calories")
     private BigDecimal calorieCalories;
 
+    @OneToOne
+    @JoinColumn
+    private Product product;
 }
