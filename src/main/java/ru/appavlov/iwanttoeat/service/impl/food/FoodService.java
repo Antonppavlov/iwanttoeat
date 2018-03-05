@@ -40,7 +40,6 @@ public class FoodService implements FoodDAO {
 
     @Override
     public void delete(Food object) {
-
     }
 
     @Override

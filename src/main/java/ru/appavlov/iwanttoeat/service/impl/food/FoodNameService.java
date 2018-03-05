@@ -41,7 +41,6 @@ public class FoodNameService implements FoodNameDAO {
 
     @Override
     public void delete(FoodName object) {
-
     }
 
     @Override

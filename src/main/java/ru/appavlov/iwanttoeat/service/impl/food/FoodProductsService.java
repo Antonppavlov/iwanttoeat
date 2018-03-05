@@ -41,7 +41,6 @@ public class FoodProductsService implements FoodProductsDAO {
 
     @Override
     public void delete(FoodProducts object) {
-
     }
 
     @Override

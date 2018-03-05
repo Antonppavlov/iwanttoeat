@@ -40,7 +40,6 @@ public class FoodRecipeService implements FoodRecipeDAO {
 
     @Override
     public void delete(FoodRecipe object) {
-
     }
 
     @Override

@@ -40,7 +40,6 @@ public class ProductService implements ProductDAO {
 
     @Override
     public void delete(Product object) {
-
     }
 
     @Override

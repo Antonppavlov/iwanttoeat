@@ -41,7 +41,6 @@ public class ProductNameService implements ProductNameDAO {
 
     @Override
     public void delete(ProductName object) {
-
     }
 
     @Override

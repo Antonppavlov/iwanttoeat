@@ -41,7 +41,6 @@ public class FoodSubtypeService implements FoodSubtypeDAO {
 
     @Override
     public void delete(FoodSubtype object) {
-
     }
 
     @Override
