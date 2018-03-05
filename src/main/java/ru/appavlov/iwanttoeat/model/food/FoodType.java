@@ -29,8 +29,5 @@ public class FoodType {
     @Column(name = "name_eng")
     private String nameEng;
 
-//    @OneToOne
-//    @JoinColumn
-//    private Food food;
 }
 

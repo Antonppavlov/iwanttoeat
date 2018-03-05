@@ -23,20 +23,20 @@ public class Food {
     @Id
     private Long id;
 
-    //    @OneToOne(mappedBy = "food_name")
-    @Column(name = "food_name_id")
-    private Long foodNameId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private FoodName name;
 
-    //    @OneToOne(mappedBy = "food_type")
-    @Column(name = "food_type_id")
-    private Long foodTypeId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private FoodType type;
 
-    //    @OneToOne(mappedBy = "food_subtype")
-    @Column(name = "food_subtype_id")
-    private Long foodSubtypeId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private FoodSubtype subtype;
 
-    //    @OneToOne(mappedBy = "food_recipe")
-    @Column(name = "food_recipe_id")
-    private Long foodRecipeId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private FoodRecipe recipe;
 
 }

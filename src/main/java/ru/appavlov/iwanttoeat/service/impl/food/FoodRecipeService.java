@@ -20,7 +20,7 @@ public class FoodRecipeService implements FoodRecipeDAO {
 
     @Override
     public List<FoodRecipe> getAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override

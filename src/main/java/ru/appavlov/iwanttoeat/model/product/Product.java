@@ -23,17 +23,17 @@ public class Product {
     @Id
     private Long id;
 
-    //    @OneToOne(mappedBy = "product_name")
-    @Column(name = "product_name_id")
-    private Long productNameId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private ProductName name;
 
-    //    @OneToOne(mappedBy = "product_type")
-    @Column(name = "product_type_id")
-    private Long productTypeId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private ProductType type;
 
-    //    @OneToOne(mappedBy = "product_data")
-    @Column(name = "product_data_id")
-    private Long productDataId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private ProductData data;
 
 }
 

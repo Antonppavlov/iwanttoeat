@@ -24,7 +24,6 @@ public class FoodProducts {
     @Id
     private Long id;
 
-    //    @OneToOne(mappedBy = "food")
     @Column(name = "food_id")
     private Long foodId;
 

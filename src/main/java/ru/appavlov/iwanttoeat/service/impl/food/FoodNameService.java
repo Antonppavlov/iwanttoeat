@@ -19,10 +19,9 @@ public class FoodNameService implements FoodNameDAO {
     @Autowired
     private FoodNameRepository repository;
 
-
     @Override
     public List<FoodName> getAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override

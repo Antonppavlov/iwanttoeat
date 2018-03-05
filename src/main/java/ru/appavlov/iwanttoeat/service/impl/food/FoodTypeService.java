@@ -21,7 +21,7 @@ public class FoodTypeService implements FoodTypeDAO {
 
     @Override
     public List<FoodType> getAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
@@ -41,7 +41,6 @@ public class FoodTypeService implements FoodTypeDAO {
 
     @Override
     public void delete(FoodType object) {
-
     }
 
     @Override

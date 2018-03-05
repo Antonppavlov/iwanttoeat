@@ -30,7 +30,4 @@ public class FoodName {
     @Column(name = "name_eng")
     private String nameEng;
 
-//    @OneToOne
-//    @JoinColumn
-//    private Food food;
 }

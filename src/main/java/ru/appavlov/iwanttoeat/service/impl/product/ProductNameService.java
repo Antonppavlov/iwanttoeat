@@ -21,7 +21,7 @@ public class ProductNameService implements ProductNameDAO {
 
     @Override
     public List<ProductName> getAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override

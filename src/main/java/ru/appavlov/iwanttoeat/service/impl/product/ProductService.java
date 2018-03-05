@@ -20,7 +20,7 @@ public class ProductService implements ProductDAO {
 
     @Override
     public List<Product> getAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override

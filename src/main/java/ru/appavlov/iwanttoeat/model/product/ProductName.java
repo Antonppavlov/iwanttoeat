@@ -28,10 +28,6 @@ public class ProductName {
 
     @Column(name = "name_eng")
     private String nameEng;
-
-//    @OneToOne
-//    @JoinColumn
-//    private Product product;
 }
 
 

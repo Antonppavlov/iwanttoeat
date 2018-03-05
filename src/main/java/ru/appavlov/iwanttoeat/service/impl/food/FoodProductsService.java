@@ -21,7 +21,7 @@ public class FoodProductsService implements FoodProductsDAO {
 
     @Override
     public List<FoodProducts> getAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override

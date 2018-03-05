@@ -29,9 +29,6 @@ public class ProductType {
     @Column(name = "name_eng")
     private String nameEng;
 
-//    @OneToOne
-//    @JoinColumn
-//    private Product product;
 }
 
 

@@ -21,7 +21,7 @@ public class ProductDataService implements ProductDataDAO {
 
     @Override
     public List<ProductData> getAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override

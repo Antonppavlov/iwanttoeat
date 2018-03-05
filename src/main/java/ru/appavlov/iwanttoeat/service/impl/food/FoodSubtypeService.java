@@ -21,7 +21,7 @@ public class FoodSubtypeService implements FoodSubtypeDAO {
 
     @Override
     public List<FoodSubtype> getAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
