@@ -12,7 +12,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(catalog = "product_data")
+@Table(name = "product_data")
 @EqualsAndHashCode(of = "id")
 @DynamicUpdate
 @DynamicInsert
@@ -121,7 +121,7 @@ public class ProductData {
     @Column(name = "calorie_calories")
     private BigDecimal calorieCalories;
 
-    @OneToOne
-    @JoinColumn
-    private Product product;
+//    @OneToOne
+//    @JoinColumn
+//    private Product product;
 }

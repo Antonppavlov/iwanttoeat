@@ -1,4 +1,5 @@
 package ru.appavlov.iwanttoeat.model.food;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,8 +9,9 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+
 @Entity
-@Table(catalog = "food_products")
+@Table(name = "food_products")
 @EqualsAndHashCode(of = "id")
 @DynamicUpdate
 @DynamicInsert
@@ -22,7 +24,7 @@ public class FoodProducts {
     @Id
     private Long id;
 
-    @OneToOne(mappedBy = "food")
+    //    @OneToOne(mappedBy = "food")
     @Column(name = "food_id")
     private Long foodId;
 

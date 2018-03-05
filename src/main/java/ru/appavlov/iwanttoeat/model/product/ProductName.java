@@ -10,7 +10,7 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 import javax.persistence.*;
 
 @Entity
-@Table(catalog = "product_name")
+@Table(name = "product_name")
 @EqualsAndHashCode(of = "id")
 @DynamicUpdate
 @DynamicInsert
@@ -29,9 +29,9 @@ public class ProductName {
     @Column(name = "name_eng")
     private String nameEng;
 
-    @OneToOne
-    @JoinColumn
-    private Product product;
+//    @OneToOne
+//    @JoinColumn
+//    private Product product;
 }
 
 

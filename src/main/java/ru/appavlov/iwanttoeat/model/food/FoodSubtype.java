@@ -8,13 +8,10 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
 import javax.persistence.*;
+
 @Entity
-@Table(catalog = "food_subtype")
+@Table(name = "food_subtype")
 @EqualsAndHashCode(of = "id")
 @DynamicUpdate
 @DynamicInsert
@@ -33,8 +30,8 @@ public class FoodSubtype {
     @Column(name = "name_eng")
     private String nameEng;
 
-    @OneToOne
-    @JoinColumn
-    private Food food;
+//    @OneToOne
+//    @JoinColumn
+//    private Food food;
 }
 
