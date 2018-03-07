@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SelectBeforeUpdate;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(catalog = "iwanttoeat", name = "food")
@@ -39,4 +40,6 @@ public class Food {
     @JoinColumn(name = "food_recipe_id")
     private FoodRecipe recipe;
 
+    @OneToMany(mappedBy = "food")
+    private List<FoodProducts> foodProducts;
 }

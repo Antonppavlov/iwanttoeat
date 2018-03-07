@@ -1,5 +1,6 @@
 package ru.appavlov.iwanttoeat.model.food;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,8 +26,10 @@ public class FoodProducts {
     @Id
     private Long id;
 
-    @Column(name = "food_id")
-    private Long foodId;
+    @JsonIgnore
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="food_id")
+    private Food food;
 
     @OneToOne
     @JoinColumn(name = "product_id")
@@ -34,6 +37,7 @@ public class FoodProducts {
 
     @Column(name = "value")
     private BigDecimal value;
+
 
 }
 
