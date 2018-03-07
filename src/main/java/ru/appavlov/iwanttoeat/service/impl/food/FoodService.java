@@ -30,7 +30,7 @@ public class FoodService implements FoodDAO {
 
     @Override
     public Food get(long id) {
-        return null;
+        return repository.findOne(id);
     }
 
     @Override

@@ -30,7 +30,7 @@ public class ProductService implements ProductDAO {
 
     @Override
     public Product get(long id) {
-        return null;
+        return repository.findOne(id);
     }
 
     @Override
