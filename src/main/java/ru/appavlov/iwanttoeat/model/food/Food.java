@@ -10,7 +10,7 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "food")
+@Table(catalog = "iwanttoeat", name = "food")
 @EqualsAndHashCode(of = "id")
 @DynamicUpdate
 @DynamicInsert
@@ -23,20 +23,20 @@ public class Food {
     @Id
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @OneToOne
+    @JoinColumn(name = "food_name_id")
     private FoodName name;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private FoodType type;
+    @OneToOne
+    @JoinColumn(name = "food_type_id")
+    private FoodType food_type;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @OneToOne
+    @JoinColumn(name = "food_subtype_id")
     private FoodSubtype subtype;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @OneToOne
+    @JoinColumn(name = "food_recipe_id")
     private FoodRecipe recipe;
 
 }

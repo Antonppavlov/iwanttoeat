@@ -10,7 +10,7 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "product_type")
+@Table(catalog = "iwanttoeat", name = "product_type")
 @EqualsAndHashCode(of = "id")
 @DynamicUpdate
 @DynamicInsert

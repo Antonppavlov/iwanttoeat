@@ -6,12 +6,13 @@ import lombok.Setter;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SelectBeforeUpdate;
+import ru.appavlov.iwanttoeat.model.product.Product;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "food_products")
+@Table(catalog = "iwanttoeat", name = "food_products")
 @EqualsAndHashCode(of = "id")
 @DynamicUpdate
 @DynamicInsert
@@ -27,8 +28,9 @@ public class FoodProducts {
     @Column(name = "food_id")
     private Long foodId;
 
-    @Column(name = "product_id")
-    private Long productId;
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column(name = "value")
     private BigDecimal value;

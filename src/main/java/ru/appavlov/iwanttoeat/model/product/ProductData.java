@@ -12,7 +12,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "product_data")
+@Table(catalog = "iwanttoeat", name = "product_data")
 @EqualsAndHashCode(of = "id")
 @DynamicUpdate
 @DynamicInsert

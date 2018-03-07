@@ -11,7 +11,7 @@ import org.hibernate.annotations.SelectBeforeUpdate;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "food_type")
+@Table(catalog = "iwanttoeat", name = "food_type")
 @EqualsAndHashCode(of = "id")
 @DynamicUpdate
 @DynamicInsert
