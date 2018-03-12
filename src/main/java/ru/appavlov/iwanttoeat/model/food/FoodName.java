@@ -30,4 +30,11 @@ public class FoodName {
     @Column(name = "name_eng")
     private String nameEng;
 
+    public FoodName() {
+    }
+
+    public FoodName(String nameRu, String nameEng) {
+        this.nameRu = nameRu;
+        this.nameEng = nameEng;
+    }
 }

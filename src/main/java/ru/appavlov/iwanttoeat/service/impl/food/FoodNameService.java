@@ -31,7 +31,7 @@ public class FoodNameService implements FoodNameDAO {
 
     @Override
     public FoodName get(long id) {
-        return null;
+        return repository.findOne(id);
     }
 
     @Override
