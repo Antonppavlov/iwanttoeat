@@ -37,4 +37,12 @@ public class FoodName {
         this.nameRu = nameRu;
         this.nameEng = nameEng;
     }
+
+
+    public FoodName(Long id, String nameRu, String nameEng) {
+        this.id = id;
+        this.nameRu = nameRu;
+        this.nameEng = nameEng;
+    }
+
 }
