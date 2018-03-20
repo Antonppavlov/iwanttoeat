@@ -48,11 +48,8 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <!-- позволяет просмотреть доступные url и передаваемые параметры сервиса -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
+
+
         <!--для тестирования-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
