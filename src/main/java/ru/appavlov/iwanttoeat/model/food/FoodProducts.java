@@ -27,8 +27,8 @@ public class FoodProducts {
     private Long id;
 
     @JsonIgnore
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="food_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_id")
     private Food food;
 
     @OneToOne

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.appavlov.iwanttoeat.model.product.Product;
-import ru.appavlov.iwanttoeat.service.impl.product.ProductService;
+import ru.appavlov.iwanttoeat.service.dao.product.ProductDAO;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductService service;
+    private ProductDAO service;
 
     @GetMapping(value = "/all")
     public List<Product> getFoods() {

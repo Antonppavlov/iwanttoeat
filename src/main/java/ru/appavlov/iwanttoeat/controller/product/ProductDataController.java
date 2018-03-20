@@ -5,7 +5,7 @@ import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.appavlov.iwanttoeat.service.impl.product.ProductDataService;
+import ru.appavlov.iwanttoeat.service.dao.product.ProductDataDAO;
 
 @Log
 @RestController
@@ -13,6 +13,6 @@ import ru.appavlov.iwanttoeat.service.impl.product.ProductDataService;
 public class ProductDataController {
 
     @Autowired
-    private ProductDataService service;
+    private ProductDataDAO service;
 
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.appavlov.iwanttoeat.model.food.FoodName;
-import ru.appavlov.iwanttoeat.service.impl.food.FoodNameService;
+import ru.appavlov.iwanttoeat.service.dao.food.FoodNameDAO;
 
 @Log
 @RestController
@@ -16,7 +16,7 @@ import ru.appavlov.iwanttoeat.service.impl.food.FoodNameService;
 public class FoodNameController {
 
     @Autowired
-    private FoodNameService service;
+    private FoodNameDAO service;
 
     @GetMapping
     public FoodName get(@RequestParam("id") long id) {
