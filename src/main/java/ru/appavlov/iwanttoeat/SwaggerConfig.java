@@ -16,7 +16,6 @@ import java.util.Collections;
 @Configuration
 public class SwaggerConfig {
 
-
     @Bean
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -44,6 +43,7 @@ public class SwaggerConfig {
 
                 "Apache License Version 2.0",
                 "https://www.apache.org/licesen.html",
+
                 Collections.emptyList());
     }
 }
