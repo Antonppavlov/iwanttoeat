@@ -30,8 +30,8 @@ public class SwaggerConfig {
 
 
         return new ApiInfo(
-                "API сервиса bookshelf",
-                "Автоматически сгенерированная Swagger документация по API сервиса Bookshelf",
+                "API сервиса 'I want to eat'",
+                "Автоматически сгенерированная Swagger документация по API сервиса 'I want to eat'",
                 "0.0.1",
 
                 "Terms of Service",
