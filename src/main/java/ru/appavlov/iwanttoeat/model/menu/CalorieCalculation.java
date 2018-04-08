@@ -1,4 +1,4 @@
-package ru.appavlov.iwanttoeat.model.food;
+package ru.appavlov.iwanttoeat.model.menu;
 
 import lombok.Getter;
 

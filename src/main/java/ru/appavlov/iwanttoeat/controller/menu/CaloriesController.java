@@ -6,19 +6,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.appavlov.iwanttoeat.model.food.CalorieCalculation;
-import ru.appavlov.iwanttoeat.service.menu.MenuService;
+import ru.appavlov.iwanttoeat.model.menu.CalorieCalculation;
+import ru.appavlov.iwanttoeat.service.menu.CaloriesService;
 
 @Log
 @RestController
 @RequestMapping(path = "/menu")
-public class MenuController {
+public class CaloriesController {
 
     @Autowired
-    private MenuService menuService;
+    private CaloriesService caloriesService;
 
-    @GetMapping("/calories")
-    public CalorieCalculation get(
+    @GetMapping("/calculation")
+    public CalorieCalculation calculation(
             @RequestParam("gender") boolean gender,
             @RequestParam("age") int age,
             @RequestParam("height") int height,
@@ -26,7 +26,7 @@ public class MenuController {
             @RequestParam("activity") int activity,
             @RequestParam("target") int target
     ) {
-        return menuService.calories(gender, age, height, weight, activity, target);
+        return caloriesService.calories(gender, age, height, weight, activity, target);
     }
 
 

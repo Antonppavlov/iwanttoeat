@@ -1,34 +1,38 @@
 package ru.appavlov.iwanttoeat.service.menu;
 
 import org.springframework.stereotype.Service;
-import ru.appavlov.iwanttoeat.model.food.CalorieCalculation;
+import ru.appavlov.iwanttoeat.model.menu.CalorieCalculation;
 
 @Service
-public class MenuService {
-
-//    Для учительницы, которую мы взяли для примера, суточная калорийность составляет 1745 ккал.
-//    Делим эту цифру на 6 частей микронутриентов (1 + 1 + 4). Одна часть составляет 290,8 ккал (округляем до 291 ккал).
-//    Следовательно, с белками женщина должна получать 291 ккал, столько же с жирами, а с углеводами - 1164 ккал (291 × 4).
-//
-//    Суточное количество белков - 291 ккал/ 4 ккал = 72,75 г.
-//    Суточное количество жиров - 291 ккал/ 9 ккал = 32,3 г.
-//    Суточное количество углеводов - 1164 ккал/ 4 ккал = 291 г.
+public class CaloriesService {
 
     public CalorieCalculation calories(boolean gender, int age, int height, int weight, int activity, int target) {
+        short percent100 = 100;
+
+        short proteinsPercent = 27;
+        short fatsPercent = 23;
+        short carbohydratesPercent = 50;
+
+        short caloriesInProteins = 4;
+        short caloriesInFats = 9;
+        short caloriesInCarbohydrates = 4;
+
         int calories = calculateCaloriesWithTheGoalInMind(gender, age, height, weight, activity, target);
-        int proteins = (calories / 6) / 4;
-        int fats = (calories / 6) / 9;
-        int carbohydrates = ((calories / 6) * 4) / 4;
+
+        int proteins = ((calories / percent100) * proteinsPercent) / caloriesInProteins;
+        int fats = ((calories / percent100) * fatsPercent) / caloriesInFats;
+        int carbohydrates = ((calories / percent100) * carbohydratesPercent) / caloriesInCarbohydrates;
 
         return new CalorieCalculation(calories, proteins, fats, carbohydrates);
     }
 
     private int calculateCaloriesWithTheGoalInMind(boolean gender, int age, int height, int weight, int activity, int target) {
+        int minCalorie = 1450;
         double targetValue = Params.GoalOfProperNutrition.values()[target].getValue();
         double calorieTargetCalculation = calculationOfCalorieNormsAllowanceActivity(gender, age, height, weight, activity) + targetValue;
 
-        if (calorieTargetCalculation < 1450) {
-            calorieTargetCalculation = 1450;
+        if (calorieTargetCalculation < minCalorie) {
+            calorieTargetCalculation = minCalorie;
         }
 
         return (int) calorieTargetCalculation;
@@ -36,11 +40,11 @@ public class MenuService {
 
     private double calculationOfCalorieNormsAllowanceActivity(boolean gender, int age, int height, int currentWeight, int activity) {
         double physicalActivityValue = Params.PhysicalActivity.values()[activity].getValue();
-        double calorieNormalCalculation = calorieNormalCalculation(gender, age, height, currentWeight);
+        double calorieNormalCalculation = formulaCaloriesNormalCalculation(gender, age, height, currentWeight);
         return calorieNormalCalculation * physicalActivityValue;
     }
 
-    private double calorieNormalCalculation(boolean gender, int age, int height, int currentWeight) {
+    private double formulaCaloriesNormalCalculation(boolean gender, int age, int height, int currentWeight) {
         double genderNeedCalories;
 
         if (gender) {
