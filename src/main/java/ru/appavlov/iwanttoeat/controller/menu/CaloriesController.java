@@ -11,7 +11,7 @@ import ru.appavlov.iwanttoeat.service.menu.CaloriesService;
 
 @Log
 @RestController
-@RequestMapping(path = "/menu")
+@RequestMapping(path = "/calories")
 public class CaloriesController {
 
     @Autowired
