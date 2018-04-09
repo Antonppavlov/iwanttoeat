@@ -15,7 +15,6 @@ import java.util.List;
 @Transactional
 public class ProductNameService implements ProductNameDAO {
 
-
     @Autowired
     private ProductNameRepository repository;
 

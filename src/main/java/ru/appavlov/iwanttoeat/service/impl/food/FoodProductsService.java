@@ -16,8 +16,12 @@ import java.util.List;
 @Transactional
 public class FoodProductsService implements FoodProductsDAO {
 
+    private final FoodProductsRepository repository;
+
     @Autowired
-    private FoodProductsRepository repository;
+    public FoodProductsService(FoodProductsRepository repository) {
+        this.repository = repository;
+    }
 
     @Override
     public List<FoodProducts> getAll() {

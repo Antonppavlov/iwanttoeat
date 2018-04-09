@@ -1,12 +1,12 @@
 package ru.appavlov.iwanttoeat.service.menu;
 
 import org.springframework.stereotype.Service;
-import ru.appavlov.iwanttoeat.model.menu.CalorieCalculation;
+import ru.appavlov.iwanttoeat.model.menu.CaloriesPerDay;
 
 @Service
 public class CaloriesService {
 
-    public CalorieCalculation calories(boolean gender, int age, int height, int weight, int activity, int target) {
+    public CaloriesPerDay calories(boolean gender, int age, int height, int weight, int activity, int target) {
         short percent100 = 100;
 
         short proteinsPercent = 27;
@@ -23,7 +23,7 @@ public class CaloriesService {
         int fats = ((calories / percent100) * fatsPercent) / caloriesInFats;
         int carbohydrates = ((calories / percent100) * carbohydratesPercent) / caloriesInCarbohydrates;
 
-        return new CalorieCalculation(calories, proteins, fats, carbohydrates);
+        return new CaloriesPerDay(calories, proteins, fats, carbohydrates);
     }
 
     private int calculateCaloriesWithTheGoalInMind(boolean gender, int age, int height, int weight, int activity, int target) {
