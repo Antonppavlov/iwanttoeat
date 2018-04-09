@@ -65,7 +65,7 @@ public class MenuService {
         Food food = foodService.get(293);
         FoodIntake foodIntake1 = new FoodIntake(
                 "первый",
-                Arrays.asList(foodService.get(293),foodService.get(332))
+                Arrays.asList(foodService.get(293), foodService.get(332))
         );
 
         //TODO второй прием
@@ -91,7 +91,7 @@ public class MenuService {
         return new MenuForTheDay(
                 caloriesPerDay,
                 Arrays.asList(foodIntake1)
-        ) ;
+        );
     }
 }
 
