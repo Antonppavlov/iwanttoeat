@@ -3,6 +3,7 @@ package ru.appavlov.iwanttoeat.model.food;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.SelectBeforeUpdate;
@@ -18,6 +19,7 @@ import java.util.List;
 @SelectBeforeUpdate
 @Getter
 @Setter
+@ToString
 public class Food {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,7 @@
 package ru.appavlov.iwanttoeat.model.food;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class FoodSubtype {
     @Column(name = "name_ru")
     private String nameRu;
 
+    @JsonIgnore
     @Column(name = "name_eng")
     private String nameEng;
 
