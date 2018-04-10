@@ -130,11 +130,9 @@ public class ProductData {
     @Column(name = "vitamin_b1_thiamine_mg")
     private BigDecimal vitaminB1ThiamineMg;
 
-    @JsonIgnore
     @Column(name = "vitamin_b2_riboflavin_mg")
     private BigDecimal vitaminB2RiboflavinMg;
 
-    @JsonIgnore
     @Column(name = "vitamin_b9_folic_acid_g")
     private BigDecimal vitaminB9FolicAcidG;
 

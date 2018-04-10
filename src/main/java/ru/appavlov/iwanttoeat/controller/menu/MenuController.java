@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.appavlov.iwanttoeat.model.menu.CaloriesPerDay;
+import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
 import ru.appavlov.iwanttoeat.model.menu.MenuForTheDay;
 import ru.appavlov.iwanttoeat.service.menu.MenuService;
 
@@ -25,7 +25,7 @@ public class MenuController {
         int fats = 69;
         int carbohydrates = 337;
 
-        return menuService.calculation(new CaloriesPerDay(calorie, proteins, fats, carbohydrates));
+        return menuService.calculation(new CaloriesAndPFC(calorie, proteins, fats, carbohydrates));
     }
 
 

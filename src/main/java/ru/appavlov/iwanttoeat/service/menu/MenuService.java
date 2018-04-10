@@ -2,8 +2,7 @@ package ru.appavlov.iwanttoeat.service.menu;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.appavlov.iwanttoeat.model.food.Food;
-import ru.appavlov.iwanttoeat.model.menu.CaloriesPerDay;
+import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
 import ru.appavlov.iwanttoeat.model.menu.FoodIntake;
 import ru.appavlov.iwanttoeat.model.menu.MenuForTheDay;
 import ru.appavlov.iwanttoeat.service.impl.food.FoodService;
@@ -16,10 +15,10 @@ public class MenuService {
     @Autowired
     public FoodService foodService;
 
-    public MenuForTheDay calculation(CaloriesPerDay caloriesPerDay) {
-        //вернуть меню на день рассчитанное по переданным CaloriesPerDay
+    public MenuForTheDay calculation(CaloriesAndPFC caloriesAndPFC) {
+        //вернуть меню на день рассчитанное по переданным CaloriesAndPFC
         //приемов пищи 5
-        //каждый прием пищи должен быть @params caloriesPerDay.getCalorie() / 5
+        //каждый прием пищи должен быть @params caloriesAndPFC.getCalorie() / 5
         //пока нет учета БЖУ
         //TODO первый прием
         // - "первые блюда" + "напитики"
@@ -41,7 +40,7 @@ public class MenuService {
 
 
         //TODO нужно создать метод который будет отдавать составленный прием пищи
-        //принимает caloriesPerDay / 5
+        //принимает caloriesAndPFC / 5
         //принимает лист из выбранных food
         //процент по каждому food на прием пищи
 
@@ -57,12 +56,11 @@ public class MenuService {
         int fats = 69;
         int carbohydrates = 337;
 
-        CaloriesPerDay caloriesPerDay = new CaloriesPerDay(calorie, proteins, fats, carbohydrates);
+        CaloriesAndPFC caloriesAndPFC = new CaloriesAndPFC(calorie, proteins, fats, carbohydrates);
 
         //приемов пищи 5
         //TODO первый прием
         // - "первые блюда" + "напитики"
-        Food food = foodService.get(293);
         FoodIntake foodIntake1 = new FoodIntake(
                 "первый",
                 Arrays.asList(foodService.get(293), foodService.get(332))
@@ -89,7 +87,7 @@ public class MenuService {
         //возвращает объект "Прием пищи" с листом food / количесто грамм продуктов в каждом блюде
 
         return new MenuForTheDay(
-                caloriesPerDay,
+                caloriesAndPFC,
                 Arrays.asList(foodIntake1)
         );
     }

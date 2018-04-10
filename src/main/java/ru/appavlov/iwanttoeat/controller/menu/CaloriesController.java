@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.appavlov.iwanttoeat.model.menu.CaloriesPerDay;
+import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
 import ru.appavlov.iwanttoeat.service.menu.CaloriesService;
 
 @Log
@@ -18,7 +18,7 @@ public class CaloriesController {
     private CaloriesService caloriesService;
 
     @GetMapping("/calculation")
-    public CaloriesPerDay calculation(
+    public CaloriesAndPFC calculation(
             @RequestParam("gender") boolean gender,
             @RequestParam("age") int age,
             @RequestParam("height") int height,

@@ -6,7 +6,7 @@ import java.util.List;
 
 @Data
 public class MenuForTheDay {
-    private final CaloriesPerDay caloriesPerDay;
+    private final CaloriesAndPFC caloriesDay;
     private final List<FoodIntake> foodIntakeList;
 
 }
