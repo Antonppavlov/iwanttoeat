@@ -6,7 +6,7 @@ import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
 @Service
 public class CaloriesService {
 
-    public CaloriesAndPFC calories(boolean gender, int age, int height, int weight, int activity, int target) {
+    public CaloriesAndPFC caloriesAndPFC(boolean gender, int age, int height, int weight, int activity, int target) {
         short percent100 = 100;
 
         short proteinsPercent = 27;
@@ -17,7 +17,7 @@ public class CaloriesService {
         short caloriesInFats = 9;
         short caloriesInCarbohydrates = 4;
 
-        int calories = calculateCaloriesWithTheGoalInMind(gender, age, height, weight, activity, target);
+        int calories = calculationOfCalorieAllowanceTarget(gender, age, height, weight, activity, target);
 
         int proteins = ((calories / percent100) * proteinsPercent) / caloriesInProteins;
         int fats = ((calories / percent100) * fatsPercent) / caloriesInFats;
@@ -26,10 +26,10 @@ public class CaloriesService {
         return new CaloriesAndPFC(calories, proteins, fats, carbohydrates);
     }
 
-    private int calculateCaloriesWithTheGoalInMind(boolean gender, int age, int height, int weight, int activity, int target) {
+    private int calculationOfCalorieAllowanceTarget(boolean gender, int age, int height, int weight, int activity, int target) {
         int minCalorie = 1450;
         double targetValue = Params.GoalOfProperNutrition.values()[target].getValue();
-        double calorieTargetCalculation = calculationOfCalorieNormsAllowanceActivity(gender, age, height, weight, activity) + targetValue;
+        double calorieTargetCalculation = calculationOfCalorieAllowanceActivity(gender, age, height, weight, activity) + targetValue;
 
         if (calorieTargetCalculation < minCalorie) {
             calorieTargetCalculation = minCalorie;
@@ -38,7 +38,7 @@ public class CaloriesService {
         return (int) calorieTargetCalculation;
     }
 
-    private double calculationOfCalorieNormsAllowanceActivity(boolean gender, int age, int height, int currentWeight, int activity) {
+    private double calculationOfCalorieAllowanceActivity(boolean gender, int age, int height, int currentWeight, int activity) {
         double physicalActivityValue = Params.PhysicalActivity.values()[activity].getValue();
         double calorieNormalCalculation = formulaCaloriesNormalCalculation(gender, age, height, currentWeight);
         return calorieNormalCalculation * physicalActivityValue;

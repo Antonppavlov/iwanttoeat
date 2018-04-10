@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.SelectBeforeUpdate;
+import lombok.ToString;
 import ru.appavlov.iwanttoeat.model.product.Product;
 
 import javax.persistence.*;
@@ -15,11 +13,9 @@ import java.math.BigDecimal;
 @Entity
 @Table(catalog = "iwanttoeat", name = "food_products")
 @EqualsAndHashCode(of = "id")
-@DynamicUpdate
-@DynamicInsert
-@SelectBeforeUpdate
 @Getter
 @Setter
+@ToString
 public class FoodProducts {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)

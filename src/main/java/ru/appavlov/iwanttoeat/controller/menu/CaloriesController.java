@@ -26,7 +26,7 @@ public class CaloriesController {
             @RequestParam("activity") int activity,
             @RequestParam("target") int target
     ) {
-        return caloriesService.calories(gender, age, height, weight, activity, target);
+        return caloriesService.caloriesAndPFC(gender, age, height, weight, activity, target);
     }
 
 

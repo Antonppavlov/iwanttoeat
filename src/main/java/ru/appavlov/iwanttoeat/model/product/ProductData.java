@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.SelectBeforeUpdate;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,28 +13,27 @@ import java.math.BigDecimal;
 @Entity
 @Table(catalog = "iwanttoeat", name = "product_data")
 @EqualsAndHashCode(of = "id")
-@DynamicUpdate
-@DynamicInsert
-@SelectBeforeUpdate
 @Getter
 @Setter
+@ToString
 public class ProductData {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
+
     @JsonIgnore
     @Column(name = "water_g")
     private BigDecimal waterG;
 
     @Column(name = "proteins_g")
-    private BigDecimal proteinsG;
+    private BigDecimal proteins;
 
     @Column(name = "fats_g")
-    private BigDecimal fatsG;
+    private BigDecimal fats;
 
     @Column(name = "carbohydrates_g")
-    private BigDecimal carbohydratesG;
+    private BigDecimal carbohydrates;
 
     @JsonIgnore
     @Column(name = "mono_and_disaccharides_g")
@@ -130,9 +127,11 @@ public class ProductData {
     @Column(name = "vitamin_b1_thiamine_mg")
     private BigDecimal vitaminB1ThiamineMg;
 
+    @JsonIgnore
     @Column(name = "vitamin_b2_riboflavin_mg")
     private BigDecimal vitaminB2RiboflavinMg;
 
+    @JsonIgnore
     @Column(name = "vitamin_b9_folic_acid_g")
     private BigDecimal vitaminB9FolicAcidG;
 
@@ -145,5 +144,5 @@ public class ProductData {
     private BigDecimal vitaminPpNiacinMg;
 
     @Column(name = "calorie_calories")
-    private BigDecimal calorieCalories;
+    private BigDecimal calories;
 }

@@ -2,12 +2,15 @@ package ru.appavlov.iwanttoeat.service.menu;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.appavlov.iwanttoeat.model.food.Food;
 import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
 import ru.appavlov.iwanttoeat.model.menu.FoodIntake;
 import ru.appavlov.iwanttoeat.model.menu.MenuForTheDay;
 import ru.appavlov.iwanttoeat.service.impl.food.FoodService;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class MenuService {
@@ -51,20 +54,33 @@ public class MenuService {
 
     public MenuForTheDay menu() {
 
-        int calorie = 2760;
+        int calorie = 2500;
         int proteins = 182;
         int fats = 69;
         int carbohydrates = 337;
 
         CaloriesAndPFC caloriesAndPFC = new CaloriesAndPFC(calorie, proteins, fats, carbohydrates);
+        int intake1Percent = 20;
+        int intake2Percent = 10;
+        int intake3Percent = 30;
+        int intake4Percent = 20;
+        int intake5Percent = 15;
+
+        int intake1Calories = calorie * intake1Percent / 100;
+        int intake2Calories = calorie * intake2Percent / 100;
+        int intake3Calories = calorie * intake3Percent / 100;
+        int intake4Calories = calorie * intake4Percent / 100;
+        int intake5Calories = calorie * intake5Percent / 100;
 
         //приемов пищи 5
         //TODO первый прием
         // - "первые блюда" + "напитики"
-        FoodIntake foodIntake1 = new FoodIntake(
-                "первый",
-                Arrays.asList(foodService.get(293), foodService.get(332))
-        );
+        Map<Double, Food> foodMap = new HashMap<>();
+        foodMap.put(75.0, foodService.get(293));
+        foodMap.put(25.0, foodService.get(332));
+        FoodIntake foodIntake1 = new FoodIntake("Первый прием пищи", foodMap, intake1Calories);
+//        FoodIntake foodIntake1 = a(intake1Calories,);
+
 
         //TODO второй прием
         // - "бутерброды"
@@ -78,7 +94,7 @@ public class MenuService {
         //салат
 
         //TODO пятый прием
-        //вторые блюда
+        //вторые блюда  /молочка
         //салат
 
 
