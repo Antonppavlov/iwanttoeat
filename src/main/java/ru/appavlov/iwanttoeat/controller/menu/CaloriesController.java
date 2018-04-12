@@ -2,11 +2,9 @@ package ru.appavlov.iwanttoeat.controller.menu;
 
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
+import ru.appavlov.iwanttoeat.model.menu.HumanParam;
 import ru.appavlov.iwanttoeat.service.menu.CaloriesService;
 
 @Log
@@ -24,11 +22,14 @@ public class CaloriesController {
             @RequestParam("height") int height,
             @RequestParam("weight") int weight,
             @RequestParam("activity") int activity,
-            @RequestParam("target") int target
-    ) {
+            @RequestParam("target") int target) {
+
         return caloriesService.caloriesAndPFC(gender, age, height, weight, activity, target);
     }
 
-
+    @PostMapping("/calculation")
+    public CaloriesAndPFC calculation(@RequestBody HumanParam humanParam) {
+        return caloriesService.caloriesAndPFC(humanParam);
+    }
 }
 

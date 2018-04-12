@@ -2,9 +2,21 @@ package ru.appavlov.iwanttoeat.service.menu;
 
 import org.springframework.stereotype.Service;
 import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
+import ru.appavlov.iwanttoeat.model.menu.HumanParam;
 
 @Service
 public class CaloriesService {
+
+    public CaloriesAndPFC caloriesAndPFC(HumanParam humanParam) {
+        return caloriesAndPFC(
+                humanParam.isGender(),
+                humanParam.getAge(),
+                humanParam.getHeight(),
+                humanParam.getWeight(),
+                humanParam.getActivity(),
+                humanParam.getTarget()
+        );
+    }
 
     public CaloriesAndPFC caloriesAndPFC(boolean gender, int age, int height, int weight, int activity, int target) {
         short percent100 = 100;
@@ -55,6 +67,7 @@ public class CaloriesService {
 
         return genderNeedCalories;
     }
+
 
 }
 
