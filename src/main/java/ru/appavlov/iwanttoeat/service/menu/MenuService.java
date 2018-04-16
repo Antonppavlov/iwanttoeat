@@ -3,13 +3,17 @@ package ru.appavlov.iwanttoeat.service.menu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.appavlov.iwanttoeat.model.food.Food;
+import ru.appavlov.iwanttoeat.model.food.FoodProducts;
 import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
 import ru.appavlov.iwanttoeat.model.menu.FoodIntake;
 import ru.appavlov.iwanttoeat.model.menu.MenuForTheDay;
+import ru.appavlov.iwanttoeat.model.product.ProductData;
 import ru.appavlov.iwanttoeat.service.impl.food.FoodService;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -78,7 +82,8 @@ public class MenuService {
         Map<Double, Food> foodMap = new HashMap<>();
         foodMap.put(75.0, foodService.get(293));
         foodMap.put(25.0, foodService.get(332));
-        FoodIntake foodIntake1 = new FoodIntake("Первый прием пищи", foodMap, intake1Calories);
+        calculateCaloriesIntake(intake1Calories, foodMap);
+        FoodIntake foodIntake1 = new FoodIntake("Первый прием пищи", foodMap, calculateCaloriesIntake(intake1Calories, foodMap));
 //        FoodIntake foodIntake1 = a(intake1Calories,);
 
 
@@ -106,6 +111,97 @@ public class MenuService {
                 caloriesAndPFC,
                 Arrays.asList(foodIntake1)
         );
+    }
+
+
+    private CaloriesAndPFC calculateCaloriesIntake(double caloriesPerFood, Map<Double, Food> foodMap) {
+        int calorieIntake = 0;
+        int proteinsIntake = 0;
+        int fatsIntake = 0;
+        int carbohydratesIntake = 0;
+
+        for (Double percent : foodMap.keySet()) {
+            CaloriesAndPFC caloriesFood = calculateCaloriesFood(foodMap.get(percent).getFoodProducts(), caloriesPerFood / 100 * percent);
+            calorieIntake += caloriesFood.getCalorie();
+            proteinsIntake += caloriesFood.getProteins();
+            fatsIntake += caloriesFood.getFats();
+            carbohydratesIntake += caloriesFood.getCarbohydrates();
+        }
+
+
+        return new CaloriesAndPFC(
+                calorieIntake,
+                proteinsIntake,
+                fatsIntake,
+                carbohydratesIntake);
+    }
+
+    //TODO метод рабочий и подгоняет количество продуктов к нужным каллориям, но нужно срочно зарефакторить
+    public CaloriesAndPFC calculateCaloriesFood(List<FoodProducts> foodProducts, double caloriesPerFood) {
+        double calorieIntake = 0.1;
+        double proteinsIntake = 0.1;
+        double fatsIntake = 0.1;
+        double carbohydratesIntake = 0.1;
+
+        for (FoodProducts product : foodProducts) {
+            //TODO надо будет отключить
+            //нужно попроавить в базе т.к. какое-то поле null некоректно
+            double valueProducts = 0;
+            if (product.getValue() != null) {
+                //получаю вес продукта
+                valueProducts = product.getValue().doubleValue();
+            }
+
+            ProductData data = product.getProduct().getData();
+
+            if (data.getCalories() != null) {
+                calorieIntake += data.getCalories().doubleValue() * (valueProducts / 100);
+            }
+            if (data.getProteins() != null) {
+                proteinsIntake += data.getProteins().doubleValue() * (valueProducts / 100);
+            }
+            if (data.getFats() != null) {
+                fatsIntake += data.getFats().doubleValue() * (valueProducts / 100);
+            }
+            if (data.getCarbohydrates() != null) {
+                carbohydratesIntake += data.getCarbohydrates().doubleValue() * (valueProducts / 100);
+            }
+
+        }
+
+        //теперь вычисляем coefficient на сколько раз надо поделить каллории
+        double coefficient = caloriesPerFood / calorieIntake;
+
+        for (FoodProducts product : foodProducts) {
+            //TODO надо будет отключить
+            //нужно попроавить в базе т.к. какое-то поле null некоректно
+
+            if (product.getValue() != null) {
+                product.setValue(BigDecimal.valueOf(product.getValue().doubleValue() * coefficient));
+            }
+
+            ProductData data = product.getProduct().getData();
+
+            if (data.getCalories() != null) {
+                data.setCalories(BigDecimal.valueOf(data.getCalories().doubleValue() * coefficient));
+            }
+            if (data.getProteins() != null) {
+                data.setProteins(BigDecimal.valueOf(data.getProteins().doubleValue() * coefficient));
+            }
+            if (data.getFats() != null) {
+                data.setFats(BigDecimal.valueOf(data.getFats().doubleValue() * coefficient));
+            }
+            if (data.getCarbohydrates() != null) {
+                data.setCarbohydrates(BigDecimal.valueOf(data.getCarbohydrates().doubleValue() * coefficient));
+            }
+
+        }
+
+        return new CaloriesAndPFC(
+                (int) (calorieIntake * coefficient),
+                (int) (proteinsIntake * coefficient),
+                (int) (fatsIntake * coefficient),
+                (int) (carbohydratesIntake * coefficient));
     }
 }
 
