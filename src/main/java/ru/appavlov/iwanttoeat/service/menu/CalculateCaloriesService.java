@@ -5,7 +5,7 @@ import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
 import ru.appavlov.iwanttoeat.model.menu.HumanParam;
 
 @Service
-public class CaloriesService {
+public class CalculateCaloriesService {
 
     public CaloriesAndPFC caloriesAndPFC(HumanParam humanParam) {
         return caloriesAndPFC(
