@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.appavlov.iwanttoeat.model.product.Product;
 import ru.appavlov.iwanttoeat.service.dao.product.ProductDAO;
 
-import java.util.List;
-
 @Log
 @RestController
 @RequestMapping(path = "/product")
@@ -18,11 +16,6 @@ public class ProductController {
 
     @Autowired
     private ProductDAO service;
-
-    @GetMapping(value = "/all")
-    public List<Product> getFoods() {
-        return service.getAll();
-    }
 
     @GetMapping
     public Product get(@RequestParam("id") long id) {

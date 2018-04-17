@@ -20,7 +20,7 @@ public class SwaggerConfig {
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("ru.appavlov.iwanttoeat"))
+                .apis(RequestHandlerSelectors.basePackage("ru.appavlov.iwanttoeat.controller"))
                 //.paths(regex(".*"))
                 .build()
                 .apiInfo(metaInfo());

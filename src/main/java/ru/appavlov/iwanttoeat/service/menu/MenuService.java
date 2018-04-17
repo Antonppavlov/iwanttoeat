@@ -137,7 +137,7 @@ public class MenuService {
     }
 
     //TODO метод рабочий и подгоняет количество продуктов к нужным каллориям, но нужно срочно зарефакторить
-    public CaloriesAndPFC calculateCaloriesFood(List<FoodProducts> foodProducts, double caloriesPerFood) {
+    private CaloriesAndPFC calculateCaloriesFood(List<FoodProducts> foodProducts, double caloriesPerFood) {
         double calorieIntake = 0.1;
         double proteinsIntake = 0.1;
         double fatsIntake = 0.1;
