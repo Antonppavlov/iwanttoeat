@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class CalculateFoodService {
+public class FoodCalculateService {
 
     @Autowired
     public FoodService foodService;

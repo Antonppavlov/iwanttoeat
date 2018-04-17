@@ -12,10 +12,10 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class CalculateMenuService {
+public class MenuCalculateService {
 
     @Autowired
-    public CalculateFoodService calculateFoodService;
+    public FoodCalculateService calculateFoodService;
 
     public MenuForTheDay calculation(CaloriesAndPFC caloriesAndPFC) {
         //вернуть меню на день рассчитанное по переданным CaloriesAndPFC

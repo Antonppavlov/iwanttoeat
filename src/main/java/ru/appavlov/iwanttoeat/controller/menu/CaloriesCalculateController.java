@@ -5,15 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
 import ru.appavlov.iwanttoeat.model.menu.HumanParam;
-import ru.appavlov.iwanttoeat.service.menu.CaloriesService;
+import ru.appavlov.iwanttoeat.service.menu.CaloriesCalculateService;
 
 @Log
 @RestController
 @RequestMapping(path = "/calories")
-public class CaloriesController {
+public class CaloriesCalculateController {
 
     @Autowired
-    private CaloriesService caloriesService;
+    private CaloriesCalculateService caloriesCalculateService;
 
     @GetMapping("/calculation")
     public CaloriesAndPFC calculation(
@@ -24,12 +24,12 @@ public class CaloriesController {
             @RequestParam("activity") int activity,
             @RequestParam("target") int target) {
 
-        return caloriesService.caloriesAndPFC(gender, age, height, weight, activity, target);
+        return caloriesCalculateService.caloriesAndPFC(gender, age, height, weight, activity, target);
     }
 
     @PostMapping("/calculation")
     public CaloriesAndPFC calculation(@RequestBody HumanParam humanParam) {
-        return caloriesService.caloriesAndPFC(humanParam);
+        return caloriesCalculateService.caloriesAndPFC(humanParam);
     }
 }
 
