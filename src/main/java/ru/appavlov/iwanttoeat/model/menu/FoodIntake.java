@@ -3,17 +3,17 @@ package ru.appavlov.iwanttoeat.model.menu;
 import lombok.Data;
 import ru.appavlov.iwanttoeat.model.food.Food;
 
-import java.util.Map;
+import java.util.List;
 
 @Data
 public class FoodIntake {
     private final String name;
-    private final Map<Double, Food> foodMap;
+    private final List<Food> foods;
     private final CaloriesAndPFC caloriesIntake;
 
-    public FoodIntake(String name, Map<Double, Food> foodMap, CaloriesAndPFC caloriesIntake) {
+    public FoodIntake(String name, List<Food> foods, CaloriesAndPFC caloriesIntake) {
         this.name = name;
-        this.foodMap = foodMap;
+        this.foods = foods;
         this.caloriesIntake = caloriesIntake;
     }
 
