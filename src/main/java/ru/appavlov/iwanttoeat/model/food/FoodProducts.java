@@ -22,6 +22,11 @@ public class FoodProducts {
     @Id
     private Long id;
 
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "food_id")
+    private Food food;
+
     @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
@@ -29,10 +34,6 @@ public class FoodProducts {
     @Column(name = "value")
     private BigDecimal value;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_id")
-    private Food food;
 
 }
 

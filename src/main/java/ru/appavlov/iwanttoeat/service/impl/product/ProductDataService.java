@@ -31,7 +31,7 @@ public class ProductDataService implements ProductDataDAO {
 
     @Override
     public ProductData get(long id) {
-        return null;
+        return repository.findOne(id);
     }
 
     @Override

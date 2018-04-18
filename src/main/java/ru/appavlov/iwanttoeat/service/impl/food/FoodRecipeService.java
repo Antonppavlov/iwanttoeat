@@ -30,7 +30,7 @@ public class FoodRecipeService implements FoodRecipeDAO {
 
     @Override
     public FoodRecipe get(long id) {
-        return null;
+        return repository.findOne(id);
     }
 
     @Override

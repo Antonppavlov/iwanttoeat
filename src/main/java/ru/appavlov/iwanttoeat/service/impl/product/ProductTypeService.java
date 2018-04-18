@@ -30,7 +30,7 @@ public class ProductTypeService implements ProductTypeDAO {
 
     @Override
     public ProductType get(long id) {
-        return null;
+        return repository.findOne(id);
     }
 
     @Override
