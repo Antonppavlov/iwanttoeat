@@ -35,11 +35,12 @@ public class FoodService implements FoodDAO {
 
     @Override
     public Food save(Food obj) {
-        return null;
+        return repository.save(obj);
     }
 
     @Override
     public void delete(Food object) {
+        repository.delete(object);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class FoodRecipeService implements FoodRecipeDAO {
 
     @Override
     public List<FoodRecipe> search(String... searchString) {
-        return null;
+        return repository.findByDescriptionRuContainingIgnoreCaseOrderByDescriptionRu(searchString[0]);
     }
 
     @Override
@@ -35,11 +35,12 @@ public class FoodRecipeService implements FoodRecipeDAO {
 
     @Override
     public FoodRecipe save(FoodRecipe obj) {
-        return null;
+        return repository.save(obj);
     }
 
     @Override
     public void delete(FoodRecipe object) {
+        repository.delete(object);
     }
 
     @Override

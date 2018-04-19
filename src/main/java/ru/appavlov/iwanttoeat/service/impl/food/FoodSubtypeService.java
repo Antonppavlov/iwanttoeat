@@ -26,7 +26,7 @@ public class FoodSubtypeService implements FoodSubtypeDAO {
 
     @Override
     public List<FoodSubtype> search(String... searchString) {
-        return null;
+        return repository.findByNameRuContainingIgnoreCaseOrderByNameRu(searchString[0]);
     }
 
     @Override
@@ -36,11 +36,12 @@ public class FoodSubtypeService implements FoodSubtypeDAO {
 
     @Override
     public FoodSubtype save(FoodSubtype obj) {
-        return null;
+        return repository.save(obj);
     }
 
     @Override
     public void delete(FoodSubtype object) {
+        repository.delete(object);
     }
 
     @Override

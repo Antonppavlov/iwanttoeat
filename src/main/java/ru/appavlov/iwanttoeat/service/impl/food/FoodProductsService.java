@@ -40,12 +40,14 @@ public class FoodProductsService implements FoodProductsDAO {
 
     @Override
     public FoodProducts save(FoodProducts obj) {
-        return null;
+        return repository.save(obj);
     }
 
     @Override
     public void delete(FoodProducts object) {
+        repository.delete(object);
     }
+
 
     @Override
     public List<FoodProducts> getAll(Sort sort) {

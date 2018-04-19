@@ -34,12 +34,13 @@ public class ProductService implements ProductDAO {
     }
 
     @Override
-    public Product save(Product obj) {
-        return null;
+    public Product save(Product product) {
+        return repository.save(product);
     }
 
     @Override
-    public void delete(Product object) {
+    public void delete(Product product) {
+        repository.delete(product);
     }
 
     @Override

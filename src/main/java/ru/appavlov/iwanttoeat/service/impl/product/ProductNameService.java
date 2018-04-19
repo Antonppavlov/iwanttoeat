@@ -25,7 +25,7 @@ public class ProductNameService implements ProductNameDAO {
 
     @Override
     public List<ProductName> search(String... searchString) {
-        return null;
+        return repository.findByNameRuContainingIgnoreCaseOrderByNameRu(searchString[0]);
     }
 
     @Override
@@ -35,11 +35,12 @@ public class ProductNameService implements ProductNameDAO {
 
     @Override
     public ProductName save(ProductName obj) {
-        return null;
+        return repository.save(obj);
     }
 
     @Override
     public void delete(ProductName object) {
+        repository.delete(object);
     }
 
     @Override

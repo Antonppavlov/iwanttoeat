@@ -26,7 +26,7 @@ public class FoodNameService implements FoodNameDAO {
 
     @Override
     public List<FoodName> search(String... searchString) {
-        return null;
+        return repository.findByNameRuContainingIgnoreCaseOrderByNameRu(searchString[0]);
     }
 
     @Override
@@ -36,11 +36,12 @@ public class FoodNameService implements FoodNameDAO {
 
     @Override
     public FoodName save(FoodName obj) {
-        return null;
+        return repository.save(obj);
     }
 
     @Override
     public void delete(FoodName object) {
+        repository.delete(object);
     }
 
     @Override

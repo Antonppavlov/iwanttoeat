@@ -36,11 +36,12 @@ public class ProductDataService implements ProductDataDAO {
 
     @Override
     public ProductData save(ProductData obj) {
-        return null;
+        return repository.save(obj);
     }
 
     @Override
     public void delete(ProductData object) {
+        repository.delete(object);
     }
 
     @Override
