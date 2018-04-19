@@ -3,10 +3,7 @@ package ru.appavlov.iwanttoeat.controller.product;
 
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.appavlov.iwanttoeat.model.product.ProductData;
 import ru.appavlov.iwanttoeat.service.dao.product.ProductDataDAO;
 
@@ -21,5 +18,17 @@ public class ProductDataController {
     @GetMapping
     public ProductData get(@RequestParam("id") long id) {
         return service.get(id);
+    }
+
+    @DeleteMapping
+    public boolean delete(@RequestParam("id") long id) {
+        service.delete(service.get(id));
+        return true;
+    }
+
+    @PostMapping
+    public boolean add(@RequestBody ProductData productData) {
+        service.save(productData);
+        return true;
     }
 }
