@@ -8,5 +8,4 @@ import java.util.List;
 public class MenuForTheDay {
     private final CaloriesAndPFC caloriesDay;
     private final List<FoodIntake> foodIntakeList;
-
 }

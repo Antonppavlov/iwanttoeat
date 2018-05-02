@@ -6,5 +6,4 @@ import lombok.Data;
 public class IdAndPercentFood {
     private final int id;
     private final double percent;
-
 }
