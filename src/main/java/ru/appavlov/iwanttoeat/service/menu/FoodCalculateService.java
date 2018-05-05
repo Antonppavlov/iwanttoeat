@@ -50,13 +50,13 @@ public class FoodCalculateService {
         }
 
         return new FoodIntake(
-                name,
-                foods,
                 new CaloriesAndPFC(
                         calorieIntake,
                         proteinsIntake,
                         fatsIntake,
-                        carbohydratesIntake)
+                        carbohydratesIntake),
+                name,
+                foods
         );
     }
 
@@ -89,13 +89,13 @@ public class FoodCalculateService {
         }
 
         return new FoodIntake(
-                name,
-                foods,
                 new CaloriesAndPFC(
                         calorieIntake,
                         proteinsIntake,
                         fatsIntake,
-                        carbohydratesIntake)
+                        carbohydratesIntake),
+                name,
+                foods
         );
 
     }

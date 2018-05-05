@@ -21,11 +21,11 @@ public class FoodRecipe {
     @Id
     private Long id;
 
-    @Column(name = "description_ru")
+    @Column(name = "description_ru", updatable = false)
     private String descriptionRu;
 
     @JsonIgnore
-    @Column(name = "description_eng")
+    @Column(name = "description_eng", updatable = false)
     private String descriptionEng;
 
 }

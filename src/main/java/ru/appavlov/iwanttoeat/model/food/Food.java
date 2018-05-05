@@ -23,19 +23,19 @@ public class Food {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "food_name_id")
+    @JoinColumn(name = "food_name_id", updatable = false)
     private FoodName name;
 
     @OneToOne
-    @JoinColumn(name = "food_type_id")
+    @JoinColumn(name = "food_type_id", updatable = false)
     private FoodType foodType;
 
     @OneToOne
-    @JoinColumn(name = "food_subtype_id")
+    @JoinColumn(name = "food_subtype_id", updatable = false)
     private FoodSubtype subtype;
 
     @OneToOne
-    @JoinColumn(name = "food_recipe_id")
+    @JoinColumn(name = "food_recipe_id", updatable = false)
     private FoodRecipe recipe;
 
     @OneToMany(mappedBy = "food")

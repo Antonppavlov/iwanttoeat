@@ -21,11 +21,11 @@ public class ProductName {
     @Id
     private Long id;
 
-    @Column(name = "name_ru")
+    @Column(name = "name_ru", updatable = false)
     private String nameRu;
 
     @JsonIgnore
-    @Column(name = "name_eng")
+    @Column(name = "name_eng", updatable = false)
     private String nameEng;
 }
 

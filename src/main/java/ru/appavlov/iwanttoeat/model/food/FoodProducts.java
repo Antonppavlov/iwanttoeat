@@ -25,14 +25,14 @@ public class FoodProducts {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_id")
+    @JoinColumn(name = "food_id", updatable = false)
     private Food food;
 
     @OneToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", updatable = false)
     private Product product;
 
-    @Column(name = "value")
+    @Column(name = "value", updatable = false)
     private BigDecimal value;
 
 
