@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
 import ru.appavlov.iwanttoeat.model.menu.FoodIntake;
-import ru.appavlov.iwanttoeat.model.menu.IdAndPercentFood;
+import ru.appavlov.iwanttoeat.model.menu.FoodTypeIdAndPercentFood;
 import ru.appavlov.iwanttoeat.model.menu.MenuForTheDay;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @Service
 public class MenuCalculateService {
@@ -17,95 +15,109 @@ public class MenuCalculateService {
     @Autowired
     public FoodCalculateService calculateFoodService;
 
+    @Autowired
+    public CaloriesSumService caloriesSumService;
+
+
     public MenuForTheDay calculation(CaloriesAndPFC caloriesAndPFC) {
-        //вернуть меню на день рассчитанное по переданным CaloriesAndPFC
-        //приемов пищи 5
-        //каждый прием пищи должен быть @params caloriesAndPFC.getCalorie() / 5
-        //пока нет учета БЖУ
-        //TODO первый прием
-        // - "первые блюда" + "напитики"
+        double calorie = caloriesAndPFC.getCalorie();
 
-        //TODO второй прием
-        // - "бутерброды"
+        double intake1Percent = 20.00;
+        double intake2Percent = 10.00;
+        double intake3Percent = 30.00;
+        double intake4Percent = 20.00;
+        double intake5Percent = 20.00;
 
-        //TODO третий прием
-        //горяиче блюда
-        //вторые блюда
+        double intake1Calories = calorie * intake1Percent / 100.00;
+        double intake2Calories = calorie * intake2Percent / 100.00;
+        double intake3Calories = calorie * intake3Percent / 100.00;
+        double intake4Calories = calorie * intake4Percent / 100.00;
+        double intake5Calories = calorie * intake5Percent / 100.00;
 
-        //TODO четвертый прием
-        //вторые блюда
-        //салат
+        /*
+        приемов пищи 5
 
-        //TODO пятый прием
-        //вторые блюда
-        //салат
-
-
-        //TODO нужно создать метод который будет отдавать составленный прием пищи
-        //принимает caloriesAndPFC / 5
-        //принимает лист из выбранных food
-        //процент по каждому food на прием пищи
-
-        //возвращает объект "Прием пищи" с листом food / количесто грамм продуктов в каждом блюде
-
-        return null;
-    }
-
-    public MenuForTheDay menu() {
-        int calorie = 2500;
-        int proteins = 182;
-        int fats = 69;
-        int carbohydrates = 337;
-
-        CaloriesAndPFC caloriesAndPFC = new CaloriesAndPFC(calorie, proteins, fats, carbohydrates);
-        int intake1Percent = 20;
-        int intake2Percent = 10;
-        int intake3Percent = 30;
-        int intake4Percent = 20;
-        int intake5Percent = 15;
-
-        int intake1Calories = calorie * intake1Percent / 100;
-        int intake2Calories = calorie * intake2Percent / 100;
-        int intake3Calories = calorie * intake3Percent / 100;
-        int intake4Calories = calorie * intake4Percent / 100;
-        int intake5Calories = calorie * intake5Percent / 100;
-
-        //приемов пищи 5
-        //TODO первый прием
-        // - "первые блюда" + "напитики"
-        List<IdAndPercentFood> idAndPercentFoodList = new ArrayList<>();
-        idAndPercentFoodList.add(new IdAndPercentFood(293, 75.0));
-        idAndPercentFoodList.add(new IdAndPercentFood(332, 25.00));
-        FoodIntake foodIntake =
+        первый прием
+        случайное из раздела выпичка
+        случайное из раздела напитки
+        */
+        FoodIntake firstMeal =
                 calculateFoodService.calculateCaloriesIntake(
-                        "первый прием пищи",
-                        idAndPercentFoodList,
-                        intake1Calories
+                        "1 meal",
+                        intake1Calories,
+                        new FoodTypeIdAndPercentFood(7, 75.00),
+                        new FoodTypeIdAndPercentFood(8, 25.00)
                 );
 
-        //TODO второй прием
-        // - "бутерброды"
+        /*
+        второй прием
+        случайное из раздела "бутерброды"
+        */
+        FoodIntake secondMeal =
+                calculateFoodService.calculateCaloriesIntake(
+                        "2 meal",
+                        intake2Calories,
+                        new FoodTypeIdAndPercentFood(5, 100.00)
+                );
 
-        //TODO третий прием
-        //горяиче блюда
-        //вторые блюда
+        /*
+        третий прием
+        случайное из раздела Первые блюда
+        случайное из раздела Вторые блюда
+        случайное из раздела Гарниры и соусы
+        случайное из раздела Салаты
+        */
+        FoodIntake thirdMeal =
+                calculateFoodService.calculateCaloriesIntake(
+                        "3 meal",
+                        intake3Calories,
+                        new FoodTypeIdAndPercentFood(1, 30.00),
+                        new FoodTypeIdAndPercentFood(2, 30.00),
+                        new FoodTypeIdAndPercentFood(10, 20.00),
+                        new FoodTypeIdAndPercentFood(3, 20.00)
+                );
 
-        //TODO четвертый прием
-        //вторые блюда
-        //салат
+        /*
+        четвертый прием
+        случайное из раздела Вторые блюда
+        случайное из раздела Гарниры и соусы
+        случайное из раздела Консервирование
+        */
+        FoodIntake fourthMeal =
+                calculateFoodService.calculateCaloriesIntake(
+                        "4 meal",
+                        intake4Calories,
+                        new FoodTypeIdAndPercentFood(2, 30.00),
+                        new FoodTypeIdAndPercentFood(10, 30.00),
+                        new FoodTypeIdAndPercentFood(9, 20.00)
+                );
 
-        //TODO пятый прием
-        //вторые блюда  /молочка
-        //салат
+        /*
+        //пятый прием
+        //продукт молоко или ряженка или кефир
+        //продукт творог
+        */
+        FoodIntake fifthMeal =
+                calculateFoodService.calculateCaloriesIntake(
+                        "5 meal",
+                        intake5Calories,
+                        new FoodTypeIdAndPercentFood(2, 60.00),
+                        new FoodTypeIdAndPercentFood(10, 40.00)
+                );
 
 
-        //TODO нужно создать метод который будет отдавать составленный прием пищи
-
-        //возвращает объект "Прием пищи" с листом food / количесто грамм продуктов в каждом блюде
+        CaloriesAndPFC allFoodIntakeCaloriesAndPFC =
+                caloriesSumService.sumAllCaloriesAndPFC(
+                        firstMeal.getCaloriesIntake(),
+                        secondMeal.getCaloriesIntake(),
+                        thirdMeal.getCaloriesIntake(),
+                        fourthMeal.getCaloriesIntake(),
+                        fifthMeal.getCaloriesIntake()
+                );
 
         return new MenuForTheDay(
-                caloriesAndPFC,
-                Arrays.asList(foodIntake)
+                allFoodIntakeCaloriesAndPFC,
+                Arrays.asList(firstMeal, secondMeal, thirdMeal, fourthMeal, fifthMeal)
         );
     }
 

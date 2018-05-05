@@ -6,13 +6,13 @@ import ru.appavlov.iwanttoeat.model.food.Food;
 import ru.appavlov.iwanttoeat.model.food.FoodProducts;
 import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
 import ru.appavlov.iwanttoeat.model.menu.FoodIntake;
+import ru.appavlov.iwanttoeat.model.menu.FoodTypeIdAndPercentFood;
 import ru.appavlov.iwanttoeat.model.menu.IdAndPercentFood;
 import ru.appavlov.iwanttoeat.model.product.ProductData;
 import ru.appavlov.iwanttoeat.service.impl.food.FoodService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -21,7 +21,47 @@ public class FoodCalculateService {
     @Autowired
     public FoodService foodService;
 
-    public FoodIntake calculateCaloriesIntake(String name, List<IdAndPercentFood> idAndPercentFoodList, double caloriesPerFood) {
+    public FoodIntake calculateCaloriesIntake(String name, double caloriesPerFood, FoodTypeIdAndPercentFood... foodTypeIdAndPercentFoods) {
+        //TODO дублируется 99% кода в методе ниже
+        int calorieIntake = 0;
+        int proteinsIntake = 0;
+        int fatsIntake = 0;
+        int carbohydratesIntake = 0;
+        List<Food> foods = new ArrayList<>();
+
+
+        for (FoodTypeIdAndPercentFood foodTypeIdAndPercentFood : foodTypeIdAndPercentFoods) {
+            Food food = foodService.getRandomFoodWhereTypeId(foodTypeIdAndPercentFood.getTypeId());
+
+            CaloriesAndPFC caloriesFood =
+                    calculateCaloriesFood(
+                            food.getFoodProducts(),
+                            caloriesPerFood / 100 * foodTypeIdAndPercentFood.getPercent()
+                    );
+
+
+            calorieIntake += caloriesFood.getCalorie();
+            proteinsIntake += caloriesFood.getProteins();
+            fatsIntake += caloriesFood.getFats();
+            carbohydratesIntake += caloriesFood.getCarbohydrates();
+
+
+            foods.add(food);
+        }
+
+        return new FoodIntake(
+                name,
+                foods,
+                new CaloriesAndPFC(
+                        calorieIntake,
+                        proteinsIntake,
+                        fatsIntake,
+                        carbohydratesIntake)
+        );
+    }
+
+    public FoodIntake calculateCaloriesIntake(String name, double caloriesPerFood, IdAndPercentFood... idAndPercentFoodList) {
+        //TODO дублируется 99% кода в методе выше
         int calorieIntake = 0;
         int proteinsIntake = 0;
         int fatsIntake = 0;
@@ -63,8 +103,8 @@ public class FoodCalculateService {
     public FoodIntake calculateCaloriesIntake(int foodId, double caloriesPerFood) {
         return calculateCaloriesIntake(
                 "Рассчет блюда",
-                Arrays.asList(new IdAndPercentFood(foodId, 100)),
-                caloriesPerFood);
+                caloriesPerFood,
+                new IdAndPercentFood(foodId, 100));
     }
 
 

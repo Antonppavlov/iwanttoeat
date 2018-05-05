@@ -5,5 +5,6 @@ import ru.appavlov.iwanttoeat.service.dao.GeneralDAO;
 
 public interface FoodDAO extends GeneralDAO<Food> {
 
+    Food getRandomFoodWhereTypeId(long typeId);
 
 }

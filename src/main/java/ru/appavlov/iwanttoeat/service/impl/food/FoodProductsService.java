@@ -48,7 +48,6 @@ public class FoodProductsService implements FoodProductsDAO {
         repository.delete(object);
     }
 
-
     @Override
     public List<FoodProducts> getAll(Sort sort) {
         return null;
