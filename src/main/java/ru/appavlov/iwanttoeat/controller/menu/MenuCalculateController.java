@@ -2,10 +2,8 @@ package ru.appavlov.iwanttoeat.controller.menu;
 
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
 import ru.appavlov.iwanttoeat.model.menu.FoodIntake;
 import ru.appavlov.iwanttoeat.model.menu.MenuForTheDay;
 import ru.appavlov.iwanttoeat.service.menu.FoodCalculateService;
@@ -22,21 +20,21 @@ public class MenuCalculateController {
     @Autowired
     private FoodCalculateService calculateFoodService;
 
-//    @GetMapping("/calculation")
-//    public MenuForTheDay calculateMenu() {
-//
-//        int calorie = 2760;
-//        int proteins = 182;
-//        int fats = 69;
-//        int carbohydrates = 337;
-//
-//        return menuService.calculation(new CaloriesAndPFC(calorie, proteins, fats, carbohydrates));
-//    }
+    @GetMapping
+    public MenuForTheDay menuGet(
+            @RequestParam("calorie") int calorie,
+            @RequestParam("proteins") int proteins,
+            @RequestParam("fats") int fats,
+            @RequestParam("carbohydrates") int carbohydrates
+    ) {
+        return menuCalculateService.calculation(
+                new CaloriesAndPFC(calorie, proteins, fats, carbohydrates)
+        );
+    }
 
-
-    @GetMapping(value = "default")
-    public MenuForTheDay menu() {
-        return menuCalculateService.menu();
+    @PostMapping
+    public MenuForTheDay menuPost(@RequestBody CaloriesAndPFC caloriesAndPFC) {
+        return menuCalculateService.calculation(caloriesAndPFC);
     }
 
     @GetMapping(value = "caloriesPerFood")
@@ -44,4 +42,3 @@ public class MenuCalculateController {
         return calculateFoodService.calculateCaloriesIntake(foodId, caloriesPerFood);
     }
 }
-
