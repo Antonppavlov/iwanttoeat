@@ -1,5 +1,6 @@
 package ru.appavlov.iwanttoeat.model.food;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ import java.util.List;
 @ToString
 public class Food {
 
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
@@ -26,7 +28,7 @@ public class Food {
 
     @OneToOne
     @JoinColumn(name = "food_type_id")
-    private FoodType food_type;
+    private FoodType foodType;
 
     @OneToOne
     @JoinColumn(name = "food_subtype_id")

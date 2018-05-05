@@ -1,5 +1,6 @@
 package ru.appavlov.iwanttoeat.model.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import javax.persistence.*;
 @ToString
 public class Product {
 
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;

@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 @ToString
 public class ProductData {
 
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;

@@ -16,6 +16,7 @@ import javax.persistence.*;
 @ToString
 public class ProductName {
 
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
