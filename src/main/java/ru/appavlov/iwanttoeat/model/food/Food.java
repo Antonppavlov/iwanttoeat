@@ -19,6 +19,7 @@ public class Food {
 
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false)
     @Id
     private Long id;
 
@@ -40,9 +41,5 @@ public class Food {
 
     @OneToMany(mappedBy = "food")
     private List<FoodProducts> foodProducts;
-
-//    private CaloriesAndPFC caloriesAndPFC;
-
-
 
 }

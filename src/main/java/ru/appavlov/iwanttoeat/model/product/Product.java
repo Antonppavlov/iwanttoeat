@@ -18,6 +18,7 @@ public class Product {
 
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false)
     @Id
     private Long id;
 

@@ -19,6 +19,7 @@ public class FoodName {
 
     @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false)
     @Id
     private Long id;
 
