@@ -10,4 +10,6 @@ import java.util.List;
 public interface FoodRepository extends JpaRepository<Food, Long> {
 
     List<Food> findByFoodTypeId(long foodType);
+
+    List<Food> findByFoodSubTypeId(long foodType);
 }

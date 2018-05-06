@@ -46,6 +46,19 @@ public class FoodService implements FoodDAO {
     }
 
     @Override
+    public Food getRandomFoodWhereSubTypeId(long typeId) {
+        List<Food> byFoodType = repository.findByFoodSubTypeId(typeId);
+
+        int a = 0; // Начальное значение диапазона - "от"
+        int b = byFoodType.size(); // Конечное значение диапазона - "до"
+
+        int randomNumber = a + (int) (Math.random() * b);
+
+        return byFoodType.get(randomNumber);
+    }
+
+
+    @Override
     public Food save(Food obj) {
         return repository.save(obj);
     }

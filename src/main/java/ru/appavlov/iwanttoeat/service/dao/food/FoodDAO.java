@@ -7,4 +7,5 @@ public interface FoodDAO extends GeneralDAO<Food> {
 
     Food getRandomFoodWhereTypeId(long typeId);
 
+    Food getRandomFoodWhereSubTypeId(long typeId);
 }

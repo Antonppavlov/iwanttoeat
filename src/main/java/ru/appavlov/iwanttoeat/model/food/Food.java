@@ -33,7 +33,7 @@ public class Food {
 
     @OneToOne
     @JoinColumn(name = "food_subtype_id", updatable = false)
-    private FoodSubtype subtype;
+    private FoodSubtype foodSubType;
 
     @OneToOne
     @JoinColumn(name = "food_recipe_id", updatable = false)
