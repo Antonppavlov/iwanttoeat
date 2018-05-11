@@ -3,6 +3,7 @@ package ru.appavlov.iwanttoeat.service.impl.food;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,16 +47,16 @@ public class FoodNameService implements FoodNameDAO {
 
     @Override
     public List<FoodName> getAll(Sort sort) {
-        return null;
+        return repository.findAll(sort);
     }
 
     @Override
     public Page<FoodName> getAll(int pageNumber, int pageSize, String sortField, Sort.Direction sortDirection) {
-        return null;
+        return repository.findAll(new PageRequest(pageNumber, pageSize, new Sort(sortDirection, sortField)));
     }
 
     @Override
     public Page<FoodName> search(int pageNumber, int pageSize, String sortField, Sort.Direction sortDirection, String... searchString) {
-        return null;
+        return repository.findByNameRuContainingIgnoreCaseOrderByNameRu(searchString[0], new PageRequest(pageNumber, pageSize, new Sort(sortDirection, sortField)));
     }
 }

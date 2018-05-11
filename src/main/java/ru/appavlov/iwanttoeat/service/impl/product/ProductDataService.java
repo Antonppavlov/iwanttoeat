@@ -3,6 +3,7 @@ package ru.appavlov.iwanttoeat.service.impl.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,12 +47,12 @@ public class ProductDataService implements ProductDataDAO {
 
     @Override
     public List<ProductData> getAll(Sort sort) {
-        return null;
+        return repository.findAll(sort);
     }
 
     @Override
     public Page<ProductData> getAll(int pageNumber, int pageSize, String sortField, Sort.Direction sortDirection) {
-        return null;
+        return repository.findAll(new PageRequest(pageNumber, pageSize, new Sort(sortDirection, sortField)));
     }
 
     @Override
