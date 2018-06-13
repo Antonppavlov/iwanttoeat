@@ -6,7 +6,7 @@
 
     <groupId>ru.appavlov</groupId>
     <artifactId>i-want-to-eat</artifactId>
-    <version>0.0.1</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <developers>

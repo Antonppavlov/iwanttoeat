@@ -31,14 +31,14 @@ public class SwaggerConfig {
 
         return new ApiInfo(
                 "API сервиса 'I want to eat'",
-                "Автоматически сгенерированная Swagger документация по API сервиса 'I want to eat'",
-                "0.0.1",
+                "Автоматически сгенерированная Swagger документация API сервиса 'I want to eat'",
+                "1.0.0",
 
                 "Terms of Service",
 
                 new Contact(
                         "Anton Pavlov",
-                        "https://github.com/Antonppavlov",
+                        "https://github.com/Antonppavlov/iwanttoeat",
                         "anton.it.pavlov@gmail.com"),
 
                 "Apache License Version 2.0",
