@@ -43,7 +43,7 @@ public class MenuCalculateService {
         */
         FoodIntake firstMeal =
                 calculateFoodService.calculateCaloriesIntake(
-                        "1 meal",
+                        "Первый прием пищи",
                         intake1Calories,
                         new FoodTypeIdAndPercentFood(7, 75.00),
                         new FoodTypeIdAndPercentFood(8, 25.00)
@@ -55,7 +55,7 @@ public class MenuCalculateService {
         */
         FoodIntake secondMeal =
                 calculateFoodService.calculateCaloriesIntake(
-                        "2 meal",
+                        "Второй прием пищи",
                         intake2Calories,
                         new FoodTypeIdAndPercentFood(5, 100.00)
                 );
@@ -69,7 +69,7 @@ public class MenuCalculateService {
         */
         FoodIntake thirdMeal =
                 calculateFoodService.calculateCaloriesIntake(
-                        "3 meal",
+                        "Третий прием пищи",
                         intake3Calories,
                         new FoodTypeIdAndPercentFood(1, 30.00),
                         new FoodTypeIdAndPercentFood(2, 30.00),
@@ -85,7 +85,7 @@ public class MenuCalculateService {
         */
         FoodIntake fourthMeal =
                 calculateFoodService.calculateCaloriesIntake(
-                        "4 meal",
+                        "Четвертый прием пищи",
                         intake4Calories,
                         new FoodTypeIdAndPercentFood(2, 30.00),
                         new FoodTypeIdAndPercentFood(10, 30.00),
@@ -99,7 +99,7 @@ public class MenuCalculateService {
         */
         FoodIntake fifthMeal =
                 calculateFoodService.calculateCaloriesIntake(
-                        "5 meal",
+                        "Пятый прием пищи",
                         intake5Calories,
                         new FoodTypeIdAndPercentFood(2, 60.00),
                         new FoodTypeIdAndPercentFood(10, 40.00)
