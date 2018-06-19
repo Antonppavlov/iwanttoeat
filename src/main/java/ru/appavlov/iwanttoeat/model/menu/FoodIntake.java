@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class FoodIntake {
-    private final CPFC cpfc;
     private final String name;
     private final List<Food> foods;
+    private final CPFC cpfc;
 }

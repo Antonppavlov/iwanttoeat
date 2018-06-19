@@ -24,12 +24,12 @@ public class CaloriesCalculateController {
             @RequestParam("activity") int activity,
             @RequestParam("target") int target) {
 
-        return caloriesCalculateService.caloriesAndPFC(gender, age, height, weight, activity, target);
+        return caloriesCalculateService.calculationCPFC(gender, age, height, weight, activity, target);
     }
 
     @PostMapping("/calculation")
     public CPFC calculation(@RequestBody HumanParam humanParam) {
-        return caloriesCalculateService.caloriesAndPFC(humanParam);
+        return caloriesCalculateService.calculationCPFC(humanParam);
     }
 }
 

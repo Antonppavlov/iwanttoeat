@@ -8,8 +8,8 @@ import ru.appavlov.iwanttoeat.model.menu.HumanParam;
 @Service
 public class CaloriesCalculateService {
 
-    public CPFC caloriesAndPFC(HumanParam humanParam) {
-        return caloriesAndPFC(
+    public CPFC calculationCPFC(HumanParam humanParam) {
+        return calculationCPFC(
                 humanParam.isGender(),
                 humanParam.getAge(),
                 humanParam.getHeight(),
@@ -19,7 +19,13 @@ public class CaloriesCalculateService {
         );
     }
 
-    public CPFC caloriesAndPFC(boolean gender, int age, int height, int weight, int activity, int target) {
+    public CPFC calculationCPFC(final boolean gender,
+                                final int age,
+                                final int height,
+                                final int weight,
+                                final int activity,
+                                final int target) {
+
         short percent100 = 100;
 
         short proteinsPercent = 27;
@@ -39,7 +45,12 @@ public class CaloriesCalculateService {
         return new CPFC(calories, proteins, fats, carbohydrates);
     }
 
-    private int calculationOfCalorieAllowanceTarget(boolean gender, int age, int height, int weight, int activity, int target) {
+    private int calculationOfCalorieAllowanceTarget(final boolean gender,
+                                                    final int age,
+                                                    final int height,
+                                                    final int weight,
+                                                    final int activity,
+                                                    final int target) {
         int minCalorie = 1450;
         double targetValue = GoalOfProperNutrition.values()[target].getValue();
         double calorieTargetCalculation = calculationOfCalorieAllowanceActivity(gender, age, height, weight, activity) + targetValue;
@@ -51,13 +62,20 @@ public class CaloriesCalculateService {
         return (int) calorieTargetCalculation;
     }
 
-    private double calculationOfCalorieAllowanceActivity(boolean gender, int age, int height, int currentWeight, int activity) {
+    private double calculationOfCalorieAllowanceActivity(final boolean gender,
+                                                         final int age,
+                                                         final int height,
+                                                         final int currentWeight,
+                                                         final int activity) {
         double physicalActivityValue = PhysicalActivity.values()[activity].getValue();
         double calorieNormalCalculation = formulaCaloriesNormalCalculation(gender, age, height, currentWeight);
         return calorieNormalCalculation * physicalActivityValue;
     }
 
-    private double formulaCaloriesNormalCalculation(boolean gender, int age, int height, int currentWeight) {
+    private double formulaCaloriesNormalCalculation(final boolean gender,
+                                                    final int age,
+                                                    final int height,
+                                                    final int currentWeight) {
         double genderNeedCalories;
 
         if (gender) {

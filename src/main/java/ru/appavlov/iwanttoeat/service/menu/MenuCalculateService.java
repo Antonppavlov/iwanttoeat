@@ -110,7 +110,7 @@ public class MenuCalculateService {
 
 
         CPFC allFoodIntakeCPFC =
-                caloriesSumService.sumAllCaloriesAndPFC(
+                caloriesSumService.sumAllCPFC(
                         firstMeal.getCpfc(),
                         secondMeal.getCpfc(),
                         thirdMeal.getCpfc(),

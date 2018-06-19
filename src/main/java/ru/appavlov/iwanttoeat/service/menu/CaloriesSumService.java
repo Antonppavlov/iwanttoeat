@@ -6,7 +6,7 @@ import ru.appavlov.iwanttoeat.model.menu.CPFC;
 @Service
 public class CaloriesSumService {
 
-    public CPFC sumAllCaloriesAndPFC(CPFC... arrayCPFC) {
+    public CPFC sumAllCPFC(CPFC... arrayCPFC) {
         int allCalorie = 0;
         int allProteins = 0;
         int allFats = 0;

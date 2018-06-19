@@ -17,14 +17,13 @@ import java.util.List;
 @Service
 public class FoodCalculateService implements IFoodCalculateService {
 
-    public FoodIntake calculateFoodIntake(Food food) {
+    public FoodIntake calculateFoodIntake(final Food food) {
         CPFC cpfc = calculationCPFCStandardFood(food);
-
-        return new FoodIntake(cpfc, "Рассчет блюда по стандартному рецепту", Arrays.asList(food));
+        return new FoodIntake("Рассчет блюда по стандартному рецепту", Arrays.asList(food), cpfc);
     }
 
     @Override
-    public FoodIntake calculateFoodIntake(String name, double caloriesPerFood, FoodAndPercent... foodAndPercents) {
+    public FoodIntake calculateFoodIntake(final String name, final double caloriesPerFood, FoodAndPercent... foodAndPercents) {
         double calorieIntake = 0;
         double proteinsIntake = 0;
         double fatsIntake = 0;
@@ -44,18 +43,17 @@ public class FoodCalculateService implements IFoodCalculateService {
             fatsIntake += caloriesFood.getFats();
             carbohydratesIntake += caloriesFood.getCarbohydrates();
 
-
             foods.add(food);
         }
 
         FoodIntake foodIntake = new FoodIntake(
+                name,
+                foods,
                 new CPFC(
                         calorieIntake,
                         proteinsIntake,
                         fatsIntake,
-                        carbohydratesIntake),
-                name,
-                foods
+                        carbohydratesIntake)
         );
 
         return foodIntake;
@@ -103,20 +101,18 @@ public class FoodCalculateService implements IFoodCalculateService {
         double fatsIntake = 0;
         double carbohydratesIntake = 0;
 
-
         for (FoodProducts product : food.getFoodProducts()) {
             double valueProducts = product.getValue().doubleValue();
 
             if (valueProducts > 0) {
-
-                double percentProductForCalculation = valueProducts / 100;
+                double coefficient = valueProducts / 100;
 
                 ProductData productDataPer100Grams = product.getProduct().getData();
 
-                calorieIntake += productDataPer100Grams.getCalories().doubleValue() * percentProductForCalculation;
-                proteinsIntake += productDataPer100Grams.getProteins().doubleValue() * percentProductForCalculation;
-                fatsIntake += productDataPer100Grams.getFats().doubleValue() * percentProductForCalculation;
-                carbohydratesIntake += productDataPer100Grams.getCarbohydrates().doubleValue() * percentProductForCalculation;
+                calorieIntake += productDataPer100Grams.getCalories().doubleValue() * coefficient;
+                proteinsIntake += productDataPer100Grams.getProteins().doubleValue() * coefficient;
+                fatsIntake += productDataPer100Grams.getFats().doubleValue() * coefficient;
+                carbohydratesIntake += productDataPer100Grams.getCarbohydrates().doubleValue() * coefficient;
             }
         }
 
