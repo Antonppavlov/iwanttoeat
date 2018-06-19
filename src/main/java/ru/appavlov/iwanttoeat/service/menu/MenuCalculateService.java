@@ -2,10 +2,11 @@ package ru.appavlov.iwanttoeat.service.menu;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
+import ru.appavlov.iwanttoeat.model.menu.CPFC;
+import ru.appavlov.iwanttoeat.model.menu.FoodAndPercent;
 import ru.appavlov.iwanttoeat.model.menu.FoodIntake;
-import ru.appavlov.iwanttoeat.model.menu.FoodTypeIdAndPercentFood;
 import ru.appavlov.iwanttoeat.model.menu.MenuForTheDay;
+import ru.appavlov.iwanttoeat.service.impl.food.FoodService;
 
 import java.util.Arrays;
 
@@ -18,9 +19,11 @@ public class MenuCalculateService {
     @Autowired
     public CaloriesSumService caloriesSumService;
 
+    @Autowired
+    public FoodService foodService;
 
-    public MenuForTheDay calculation(CaloriesAndPFC caloriesAndPFC) {
-        double calorie = caloriesAndPFC.getCalorie();
+    public MenuForTheDay calculation(CPFC CPFC) {
+        double calorie = CPFC.getCalories();
 
         double intake1Percent = 20.00;
         double intake2Percent = 10.00;
@@ -42,11 +45,11 @@ public class MenuCalculateService {
         случайное из раздела напитки
         */
         FoodIntake firstMeal =
-                calculateFoodService.calculateCaloriesIntake(
+                calculateFoodService.calculateFoodIntake(
                         "Первый прием пищи",
                         intake1Calories,
-                        new FoodTypeIdAndPercentFood(7, 75.00),
-                        new FoodTypeIdAndPercentFood(8, 25.00)
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(7), 75.00),
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(8), 25.00)
                 );
 
         /*
@@ -54,10 +57,10 @@ public class MenuCalculateService {
         случайное из раздела "бутерброды"
         */
         FoodIntake secondMeal =
-                calculateFoodService.calculateCaloriesIntake(
+                calculateFoodService.calculateFoodIntake(
                         "Второй прием пищи",
                         intake2Calories,
-                        new FoodTypeIdAndPercentFood(5, 100.00)
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(5), 100.00)
                 );
 
         /*
@@ -68,13 +71,13 @@ public class MenuCalculateService {
         случайное из раздела Салаты
         */
         FoodIntake thirdMeal =
-                calculateFoodService.calculateCaloriesIntake(
+                calculateFoodService.calculateFoodIntake(
                         "Третий прием пищи",
                         intake3Calories,
-                        new FoodTypeIdAndPercentFood(1, 30.00),
-                        new FoodTypeIdAndPercentFood(2, 30.00),
-                        new FoodTypeIdAndPercentFood(10, 20.00),
-                        new FoodTypeIdAndPercentFood(3, 20.00)
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(1), 30.00),
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(2), 30.00),
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(10), 20.00),
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(3), 20.00)
                 );
 
         /*
@@ -84,12 +87,12 @@ public class MenuCalculateService {
         случайное из раздела Консервирование
         */
         FoodIntake fourthMeal =
-                calculateFoodService.calculateCaloriesIntake(
+                calculateFoodService.calculateFoodIntake(
                         "Четвертый прием пищи",
                         intake4Calories,
-                        new FoodTypeIdAndPercentFood(2, 30.00),
-                        new FoodTypeIdAndPercentFood(10, 30.00),
-                        new FoodTypeIdAndPercentFood(9, 20.00)
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(2), 30.00),
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(10), 30.00),
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(9), 20.00)
                 );
 
         /*
@@ -98,29 +101,32 @@ public class MenuCalculateService {
         //продукт творог
         */
         FoodIntake fifthMeal =
-                calculateFoodService.calculateCaloriesIntake(
+                calculateFoodService.calculateFoodIntake(
                         "Пятый прием пищи",
                         intake5Calories,
-                        new FoodTypeIdAndPercentFood(2, 60.00),
-                        new FoodTypeIdAndPercentFood(10, 40.00)
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(2), 60.00),
+                        new FoodAndPercent(foodService.getRandomFoodWhereTypeId(10), 40.00)
                 );
 
 
-        CaloriesAndPFC allFoodIntakeCaloriesAndPFC =
+        CPFC allFoodIntakeCPFC =
                 caloriesSumService.sumAllCaloriesAndPFC(
-                        firstMeal.getCaloriesIntake(),
-                        secondMeal.getCaloriesIntake(),
-                        thirdMeal.getCaloriesIntake(),
-                        fourthMeal.getCaloriesIntake(),
-                        fifthMeal.getCaloriesIntake()
+                        firstMeal.getCpfc(),
+                        secondMeal.getCpfc(),
+                        thirdMeal.getCpfc(),
+                        fourthMeal.getCpfc(),
+                        fifthMeal.getCpfc()
                 );
 
         return new MenuForTheDay(
-                allFoodIntakeCaloriesAndPFC,
+                allFoodIntakeCPFC,
                 Arrays.asList(firstMeal, secondMeal, thirdMeal, fourthMeal, fifthMeal)
         );
     }
 
 
+    public FoodIntake foodStandard(int foodId) {
+        return calculateFoodService.calculateFoodIntake(foodService.get(foodId));
+    }
 }
 

@@ -16,7 +16,6 @@ import javax.persistence.*;
 @ToString
 public class FoodRecipe {
 
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     @Id

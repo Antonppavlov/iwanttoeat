@@ -1,25 +1,25 @@
 package ru.appavlov.iwanttoeat.service.menu;
 
 import org.springframework.stereotype.Service;
-import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
+import ru.appavlov.iwanttoeat.model.menu.CPFC;
 
 @Service
 public class CaloriesSumService {
 
-    public CaloriesAndPFC sumAllCaloriesAndPFC(CaloriesAndPFC... caloriesAndPFCs) {
+    public CPFC sumAllCaloriesAndPFC(CPFC... arrayCPFC) {
         int allCalorie = 0;
         int allProteins = 0;
         int allFats = 0;
         int allCarbohydrates = 0;
 
-        for (CaloriesAndPFC caloriesAndPFCFood : caloriesAndPFCs) {
-            allCalorie += caloriesAndPFCFood.getCalorie();
-            allProteins += caloriesAndPFCFood.getProteins();
-            allFats += caloriesAndPFCFood.getFats();
-            allCarbohydrates += caloriesAndPFCFood.getCarbohydrates();
+        for (CPFC CPFCFood : arrayCPFC) {
+            allCalorie += CPFCFood.getCalories();
+            allProteins += CPFCFood.getProteins();
+            allFats += CPFCFood.getFats();
+            allCarbohydrates += CPFCFood.getCarbohydrates();
         }
 
-        return new CaloriesAndPFC(
+        return new CPFC(
                 allCalorie,
                 allProteins,
                 allFats,

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,10 +14,8 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-@ToString
 public class ProductData {
 
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     @Id
@@ -147,4 +144,15 @@ public class ProductData {
 
     @Column(name = "calorie_calories", updatable = false)
     private BigDecimal calories;
+
+    @Override
+    public String toString() {
+        return "ProductData{" +
+                "id=" + id +
+                ", proteins=" + proteins +
+                ", fats=" + fats +
+                ", carbohydrates=" + carbohydrates +
+                ", calories=" + calories +
+                '}';
+    }
 }

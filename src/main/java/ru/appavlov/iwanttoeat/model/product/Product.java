@@ -1,10 +1,8 @@
 package ru.appavlov.iwanttoeat.model.product;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -13,10 +11,8 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-@ToString
 public class Product {
 
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     @Id
@@ -34,7 +30,15 @@ public class Product {
     @JoinColumn(name = "product_data_id", updatable = false)
     private ProductData data;
 
-
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name=" + name.getNameRu() +
+                ", type=" + type.getNameRu() +
+                ", data=" + data.toString() +
+                '}';
+    }
 }
 
 

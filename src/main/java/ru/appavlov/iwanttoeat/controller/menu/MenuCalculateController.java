@@ -3,10 +3,9 @@ package ru.appavlov.iwanttoeat.controller.menu;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
+import ru.appavlov.iwanttoeat.model.menu.CPFC;
 import ru.appavlov.iwanttoeat.model.menu.FoodIntake;
 import ru.appavlov.iwanttoeat.model.menu.MenuForTheDay;
-import ru.appavlov.iwanttoeat.service.menu.FoodCalculateService;
 import ru.appavlov.iwanttoeat.service.menu.MenuCalculateService;
 
 @Log
@@ -17,28 +16,23 @@ public class MenuCalculateController {
     @Autowired
     private MenuCalculateService menuCalculateService;
 
-    @Autowired
-    private FoodCalculateService calculateFoodService;
-
     @GetMapping
     public MenuForTheDay menuGet(
-            @RequestParam("calorie") int calorie,
+            @RequestParam("calories") int calories,
             @RequestParam("proteins") int proteins,
             @RequestParam("fats") int fats,
-            @RequestParam("carbohydrates") int carbohydrates
-    ) {
-        return menuCalculateService.calculation(
-                new CaloriesAndPFC(calorie, proteins, fats, carbohydrates)
-        );
+            @RequestParam("carbohydrates") int carbohydrates) {
+
+        return menuCalculateService.calculation(new CPFC(calories, proteins, fats, carbohydrates));
     }
 
     @PostMapping
-    public MenuForTheDay menuPost(@RequestBody CaloriesAndPFC caloriesAndPFC) {
-        return menuCalculateService.calculation(caloriesAndPFC);
+    public MenuForTheDay menuPost(@RequestBody CPFC CPFC) {
+        return menuCalculateService.calculation(CPFC);
     }
 
-    @GetMapping(value = "caloriesPerFood")
-    public FoodIntake menu(@RequestParam int foodId, @RequestParam double caloriesPerFood) {
-        return calculateFoodService.calculateCaloriesIntake(foodId, caloriesPerFood);
+    @GetMapping(value = "food_standard")
+    public FoodIntake foodStandard(@RequestParam int foodId) {
+        return menuCalculateService.foodStandard(foodId);
     }
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import ru.appavlov.iwanttoeat.model.product.Product;
 
 import javax.persistence.*;
@@ -15,10 +14,8 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-@ToString
 public class FoodProducts {
 
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     @Id
@@ -36,7 +33,18 @@ public class FoodProducts {
     @Column(name = "value", updatable = false)
     private BigDecimal value;
 
-
+    @Override
+    public String toString() {
+        return "FoodProducts{" +
+                "id=" + id +
+                ", product=" + product.getName().getNameRu() +
+                ", value=" + value.doubleValue() +
+                ", calories=" + product.getData().getCalories() +
+                ", proteins=" + product.getData().getProteins() +
+                ", fats=" + product.getData().getFats() +
+                ", carbohydrates=" + product.getData().getCarbohydrates() +
+                '}';
+    }
 }
 
 

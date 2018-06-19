@@ -1,10 +1,8 @@
 package ru.appavlov.iwanttoeat.model.food;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,10 +12,8 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-@ToString
-public class Food {
+public class Food implements Cloneable {
 
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     @Id
@@ -42,4 +38,18 @@ public class Food {
     @OneToMany(mappedBy = "food")
     private List<FoodProducts> foodProducts;
 
+    @Override
+    public Food clone() throws CloneNotSupportedException {
+        return (Food) super.clone();
+    }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "id=" + id +
+                ", name=" + name.getNameRu() +
+                ", foodType=" + foodType.getNameRu() +
+                ", foodSubType=" + foodSubType.getNameRu() +
+                '}';
+    }
 }

@@ -2,13 +2,13 @@ package ru.appavlov.iwanttoeat.service.menu;
 
 import lombok.Getter;
 import org.springframework.stereotype.Service;
-import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
+import ru.appavlov.iwanttoeat.model.menu.CPFC;
 import ru.appavlov.iwanttoeat.model.menu.HumanParam;
 
 @Service
 public class CaloriesCalculateService {
 
-    public CaloriesAndPFC caloriesAndPFC(HumanParam humanParam) {
+    public CPFC caloriesAndPFC(HumanParam humanParam) {
         return caloriesAndPFC(
                 humanParam.isGender(),
                 humanParam.getAge(),
@@ -19,7 +19,7 @@ public class CaloriesCalculateService {
         );
     }
 
-    public CaloriesAndPFC caloriesAndPFC(boolean gender, int age, int height, int weight, int activity, int target) {
+    public CPFC caloriesAndPFC(boolean gender, int age, int height, int weight, int activity, int target) {
         short percent100 = 100;
 
         short proteinsPercent = 27;
@@ -36,7 +36,7 @@ public class CaloriesCalculateService {
         int fats = ((calories / percent100) * fatsPercent) / caloriesInFats;
         int carbohydrates = ((calories / percent100) * carbohydratesPercent) / caloriesInCarbohydrates;
 
-        return new CaloriesAndPFC(calories, proteins, fats, carbohydrates);
+        return new CPFC(calories, proteins, fats, carbohydrates);
     }
 
     private int calculationOfCalorieAllowanceTarget(boolean gender, int age, int height, int weight, int activity, int target) {

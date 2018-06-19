@@ -3,7 +3,7 @@ package ru.appavlov.iwanttoeat.controller.menu;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
+import ru.appavlov.iwanttoeat.model.menu.CPFC;
 import ru.appavlov.iwanttoeat.model.menu.HumanParam;
 import ru.appavlov.iwanttoeat.service.menu.CaloriesCalculateService;
 
@@ -16,7 +16,7 @@ public class CaloriesCalculateController {
     private CaloriesCalculateService caloriesCalculateService;
 
     @GetMapping("/calculation")
-    public CaloriesAndPFC calculation(
+    public CPFC calculation(
             @RequestParam("gender") boolean gender,
             @RequestParam("age") int age,
             @RequestParam("height") int height,
@@ -28,7 +28,7 @@ public class CaloriesCalculateController {
     }
 
     @PostMapping("/calculation")
-    public CaloriesAndPFC calculation(@RequestBody HumanParam humanParam) {
+    public CPFC calculation(@RequestBody HumanParam humanParam) {
         return caloriesCalculateService.caloriesAndPFC(humanParam);
     }
 }

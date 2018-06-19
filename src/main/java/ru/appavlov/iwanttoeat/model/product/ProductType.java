@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -13,10 +12,8 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id")
 @Getter
 @Setter
-@ToString
 public class ProductType {
 
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     @Id
@@ -29,6 +26,10 @@ public class ProductType {
     @Column(name = "name_eng", updatable = false)
     private String nameEng;
 
+    @Override
+    public String toString() {
+        return nameRu;
+    }
 }
 
 

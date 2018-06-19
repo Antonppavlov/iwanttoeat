@@ -1,46 +1,45 @@
 package ru.appavlov.iwanttoeat.service.menu;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.appavlov.iwanttoeat.model.food.Food;
 import ru.appavlov.iwanttoeat.model.food.FoodProducts;
-import ru.appavlov.iwanttoeat.model.menu.CaloriesAndPFC;
+import ru.appavlov.iwanttoeat.model.menu.CPFC;
+import ru.appavlov.iwanttoeat.model.menu.FoodAndPercent;
 import ru.appavlov.iwanttoeat.model.menu.FoodIntake;
-import ru.appavlov.iwanttoeat.model.menu.FoodTypeIdAndPercentFood;
-import ru.appavlov.iwanttoeat.model.menu.IdAndPercentFood;
 import ru.appavlov.iwanttoeat.model.product.ProductData;
-import ru.appavlov.iwanttoeat.service.impl.food.FoodService;
+import ru.appavlov.iwanttoeat.service.menu.interfaces.IFoodCalculateService;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
-public class FoodCalculateService {
+public class FoodCalculateService implements IFoodCalculateService {
 
-    @Autowired
-    public FoodService foodService;
+    public FoodIntake calculateFoodIntake(Food food) {
+        CPFC cpfc = calculationCPFCStandardFood(food);
 
-    public FoodIntake calculateCaloriesIntake(String name, double caloriesPerFood, FoodTypeIdAndPercentFood... foodTypeIdAndPercentFoods) {
-        //TODO дублируется 99% кода в методе ниже
-        int calorieIntake = 0;
-        int proteinsIntake = 0;
-        int fatsIntake = 0;
-        int carbohydratesIntake = 0;
+        return new FoodIntake(cpfc, "Рассчет блюда по стандартному рецепту", Arrays.asList(food));
+    }
+
+    @Override
+    public FoodIntake calculateFoodIntake(String name, double caloriesPerFood, FoodAndPercent... foodAndPercents) {
+        double calorieIntake = 0;
+        double proteinsIntake = 0;
+        double fatsIntake = 0;
+        double carbohydratesIntake = 0;
+
         List<Food> foods = new ArrayList<>();
 
+        for (FoodAndPercent foodAndPercent : foodAndPercents) {
+            Food food = foodAndPercent.getFood();
 
-        for (FoodTypeIdAndPercentFood foodTypeIdAndPercentFood : foodTypeIdAndPercentFoods) {
-            Food food = foodService.getRandomFoodWhereTypeId(foodTypeIdAndPercentFood.getTypeId());
+            CPFC caloriesFood = calculateCaloriesFood(
+                    food, caloriesPerFood / 100.0 * foodAndPercent.getPercent()
+            );
 
-            CaloriesAndPFC caloriesFood =
-                    calculateCaloriesFood(
-                            food.getFoodProducts(),
-                            caloriesPerFood / 100 * foodTypeIdAndPercentFood.getPercent()
-                    );
-
-
-            calorieIntake += caloriesFood.getCalorie();
+            calorieIntake += caloriesFood.getCalories();
             proteinsIntake += caloriesFood.getProteins();
             fatsIntake += caloriesFood.getFats();
             carbohydratesIntake += caloriesFood.getCarbohydrates();
@@ -49,47 +48,8 @@ public class FoodCalculateService {
             foods.add(food);
         }
 
-        return new FoodIntake(
-                new CaloriesAndPFC(
-                        calorieIntake,
-                        proteinsIntake,
-                        fatsIntake,
-                        carbohydratesIntake),
-                name,
-                foods
-        );
-    }
-
-    public FoodIntake calculateCaloriesIntake(String name, double caloriesPerFood, IdAndPercentFood... idAndPercentFoodList) {
-        //TODO дублируется 99% кода в методе выше
-        int calorieIntake = 0;
-        int proteinsIntake = 0;
-        int fatsIntake = 0;
-        int carbohydratesIntake = 0;
-        List<Food> foods = new ArrayList<>();
-
-
-        for (IdAndPercentFood idAndPercentFood : idAndPercentFoodList) {
-            Food food = foodService.get(idAndPercentFood.getId());
-
-            CaloriesAndPFC caloriesFood =
-                    calculateCaloriesFood(
-                            food.getFoodProducts(),
-                            caloriesPerFood / 100 * idAndPercentFood.getPercent()
-                    );
-
-
-            calorieIntake += caloriesFood.getCalorie();
-            proteinsIntake += caloriesFood.getProteins();
-            fatsIntake += caloriesFood.getFats();
-            carbohydratesIntake += caloriesFood.getCarbohydrates();
-
-
-            foods.add(food);
-        }
-
-        return new FoodIntake(
-                new CaloriesAndPFC(
+        FoodIntake foodIntake = new FoodIntake(
+                new CPFC(
                         calorieIntake,
                         proteinsIntake,
                         fatsIntake,
@@ -98,81 +58,76 @@ public class FoodCalculateService {
                 foods
         );
 
+        return foodIntake;
     }
 
-    public FoodIntake calculateCaloriesIntake(int foodId, double caloriesPerFood) {
-        return calculateCaloriesIntake(
-                "Рассчет блюда",
-                caloriesPerFood,
-                new IdAndPercentFood(foodId, 100));
-    }
+    @Override
+    public CPFC calculateCaloriesFood(Food food, double caloriesPerFood) {
+        CPFC cpfcStandartFood = calculationCPFCStandardFood(food);
 
+        double coefficient = caloriesPerFood / cpfcStandartFood.getCalories();
 
-    //TODO метод рабочий и подгоняет количество продуктов к нужным каллориям, но нужно срочно зарефакторить
-    private CaloriesAndPFC calculateCaloriesFood(List<FoodProducts> foodProducts, double caloriesPerFood) {
-        double calorieIntake = 0.1;
-        double proteinsIntake = 0.1;
-        double fatsIntake = 0.1;
-        double carbohydratesIntake = 0.1;
+        for (FoodProducts product : food.getFoodProducts()) {
+            // ProductData data = product.getProduct().getData();
 
-        for (FoodProducts product : foodProducts) {
-            //TODO надо будет отключить
-            //нужно попроавить в базе т.к. какое-то поле null некоректно
-            double valueProducts = 0;
-            if (product.getValue() != null) {
-                //получаю вес продукта
-                valueProducts = product.getValue().doubleValue();
+            if (product.getValue().doubleValue() > 0) {
+                BigDecimal bigDecimalValue = BigDecimal.valueOf(product.getValue().doubleValue() * coefficient);
+
+//                BigDecimal bigDecimalCalories = BigDecimal.valueOf(data.getCalories().doubleValue() * coefficient);
+//                BigDecimal bigDecimalProteins = BigDecimal.valueOf(data.getProteins().doubleValue() * coefficient);
+//                BigDecimal bigDecimalFats = BigDecimal.valueOf(data.getFats().doubleValue() * coefficient);
+//                BigDecimal bigDecimalCarbohydrates = BigDecimal.valueOf(data.getCarbohydrates().doubleValue() * coefficient);
+//изменять только необходимый вес в блюде
+                //осталыое пусть остается как для 100 грамм
+                product.setValue(bigDecimalValue);
+//                data.setCalories(bigDecimalCalories);
+//                data.setProteins(bigDecimalProteins);
+//                data.setFats(bigDecimalFats);
+//                data.setCarbohydrates(bigDecimalCarbohydrates);
             }
-
-            ProductData data = product.getProduct().getData();
-
-            if (data.getCalories() != null) {
-                calorieIntake += data.getCalories().doubleValue() * (valueProducts / 100);
-            }
-            if (data.getProteins() != null) {
-                proteinsIntake += data.getProteins().doubleValue() * (valueProducts / 100);
-            }
-            if (data.getFats() != null) {
-                fatsIntake += data.getFats().doubleValue() * (valueProducts / 100);
-            }
-            if (data.getCarbohydrates() != null) {
-                carbohydratesIntake += data.getCarbohydrates().doubleValue() * (valueProducts / 100);
-            }
-
         }
 
-        //теперь вычисляем coefficient на сколько раз надо поделить каллории
-        double coefficient = caloriesPerFood / calorieIntake;
+        CPFC cpfc = new CPFC(
+                cpfcStandartFood.getCalories() * coefficient,
+                cpfcStandartFood.getProteins() * coefficient,
+                cpfcStandartFood.getFats() * coefficient,
+                cpfcStandartFood.getCarbohydrates() * coefficient);
 
-        for (FoodProducts product : foodProducts) {
-            //TODO надо будет отключить
-            //нужно попроавить в базе т.к. какое-то поле null некоректно
+        return cpfc;
+    }
 
-            if (product.getValue() != null) {
-                product.setValue(BigDecimal.valueOf(product.getValue().doubleValue() * coefficient));
-            }
+    @Override
+    public CPFC calculationCPFCStandardFood(Food food) {
+        double calorieIntake = 0;
+        double proteinsIntake = 0;
+        double fatsIntake = 0;
+        double carbohydratesIntake = 0;
 
-            ProductData data = product.getProduct().getData();
 
-            if (data.getCalories() != null) {
-                data.setCalories(BigDecimal.valueOf(data.getCalories().doubleValue() * coefficient));
-            }
-            if (data.getProteins() != null) {
-                data.setProteins(BigDecimal.valueOf(data.getProteins().doubleValue() * coefficient));
-            }
-            if (data.getFats() != null) {
-                data.setFats(BigDecimal.valueOf(data.getFats().doubleValue() * coefficient));
-            }
-            if (data.getCarbohydrates() != null) {
-                data.setCarbohydrates(BigDecimal.valueOf(data.getCarbohydrates().doubleValue() * coefficient));
-            }
+        for (FoodProducts product : food.getFoodProducts()) {
+            double valueProducts = product.getValue().doubleValue();
 
+            if (valueProducts > 0) {
+
+                double percentProductForCalculation = valueProducts / 100;
+
+                ProductData productDataPer100Grams = product.getProduct().getData();
+
+                calorieIntake += productDataPer100Grams.getCalories().doubleValue() * percentProductForCalculation;
+                proteinsIntake += productDataPer100Grams.getProteins().doubleValue() * percentProductForCalculation;
+                fatsIntake += productDataPer100Grams.getFats().doubleValue() * percentProductForCalculation;
+                carbohydratesIntake += productDataPer100Grams.getCarbohydrates().doubleValue() * percentProductForCalculation;
+            }
         }
 
-        return new CaloriesAndPFC(
-                (int) (calorieIntake * coefficient),
-                (int) (proteinsIntake * coefficient),
-                (int) (fatsIntake * coefficient),
-                (int) (carbohydratesIntake * coefficient));
+        CPFC cpfc = new CPFC(
+                calorieIntake,
+                proteinsIntake,
+                fatsIntake,
+                carbohydratesIntake);
+
+        return cpfc;
     }
+
+
 }
