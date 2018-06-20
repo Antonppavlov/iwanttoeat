@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class FoodProducts {
-
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     @Id
