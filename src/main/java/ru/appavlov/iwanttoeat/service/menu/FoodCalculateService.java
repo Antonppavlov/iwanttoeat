@@ -66,22 +66,14 @@ public class FoodCalculateService implements IFoodCalculateService {
         double coefficient = caloriesPerFood / cpfcStandartFood.getCalories();
 
         for (FoodProducts product : food.getFoodProducts()) {
-            // ProductData data = product.getProduct().getData();
 
             if (product.getValue().doubleValue() > 0) {
-                BigDecimal bigDecimalValue = BigDecimal.valueOf(product.getValue().doubleValue() * coefficient);
+                int valueCeil = (int) Math.ceil(product.getValue().doubleValue() * coefficient);
+                BigDecimal bigDecimalValue = BigDecimal.valueOf(valueCeil);
 
-//                BigDecimal bigDecimalCalories = BigDecimal.valueOf(data.getCalories().doubleValue() * coefficient);
-//                BigDecimal bigDecimalProteins = BigDecimal.valueOf(data.getProteins().doubleValue() * coefficient);
-//                BigDecimal bigDecimalFats = BigDecimal.valueOf(data.getFats().doubleValue() * coefficient);
-//                BigDecimal bigDecimalCarbohydrates = BigDecimal.valueOf(data.getCarbohydrates().doubleValue() * coefficient);
-//изменять только необходимый вес в блюде
-                //осталыое пусть остается как для 100 грамм
-                product.setValue(bigDecimalValue);
-//                data.setCalories(bigDecimalCalories);
-//                data.setProteins(bigDecimalProteins);
-//                data.setFats(bigDecimalFats);
-//                data.setCarbohydrates(bigDecimalCarbohydrates);
+                product.setValue(
+                        bigDecimalValue
+                );
             }
         }
 
