@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class ProductData {
-
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     @Id

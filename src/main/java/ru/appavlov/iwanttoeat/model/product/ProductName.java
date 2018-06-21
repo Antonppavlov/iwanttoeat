@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 public class ProductName {
-
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     @Id

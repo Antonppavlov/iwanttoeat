@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 public class FoodType {
-
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false)
     @Id
