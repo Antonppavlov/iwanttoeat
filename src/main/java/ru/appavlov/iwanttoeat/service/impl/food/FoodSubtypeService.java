@@ -32,7 +32,7 @@ public class FoodSubtypeService implements FoodSubtypeDAO {
 
     @Override
     public FoodSubtype get(long id) {
-        return repository.findOne(id);
+        return repository.findById(id).get();
     }
 
     @Override

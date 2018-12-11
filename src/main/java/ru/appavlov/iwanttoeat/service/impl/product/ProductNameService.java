@@ -31,7 +31,7 @@ public class ProductNameService implements ProductNameDAO {
 
     @Override
     public ProductName get(long id) {
-        return repository.findOne(id);
+        return repository.findById(id).get();
     }
 
     @Override

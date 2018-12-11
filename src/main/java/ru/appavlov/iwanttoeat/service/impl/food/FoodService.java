@@ -31,7 +31,7 @@ public class FoodService implements FoodDAO {
 
     @Override
     public Food get(long id) {
-        return repository.findOne(id);
+          return repository.findById(id).get();
     }
 
     @Override

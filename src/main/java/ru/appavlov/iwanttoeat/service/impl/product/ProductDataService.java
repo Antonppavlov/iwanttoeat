@@ -12,6 +12,7 @@ import ru.appavlov.iwanttoeat.repository.product.ProductDataRepository;
 import ru.appavlov.iwanttoeat.service.dao.product.ProductDataDAO;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -32,7 +33,7 @@ public class ProductDataService implements ProductDataDAO {
 
     @Override
     public ProductData get(long id) {
-        return repository.findOne(id);
+        return repository.findById(id).get();
     }
 
     @Override

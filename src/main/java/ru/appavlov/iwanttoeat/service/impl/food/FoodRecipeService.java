@@ -31,7 +31,7 @@ public class FoodRecipeService implements FoodRecipeDAO {
 
     @Override
     public FoodRecipe get(long id) {
-        return repository.findOne(id);
+        return repository.findById(id).get();
     }
 
     @Override
